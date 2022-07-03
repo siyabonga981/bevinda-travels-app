@@ -1,0 +1,37 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" class="full-width" fxLayoutGap="2rem">
+<div fxLayout="row" fxLayoutAlign="space-between center" class="full-width" style="padding-top: 1rem !important;">
+
+<div *ngFor="let card of dashboardCards" fxFlex="23" fxLayout="column" fxLayoutAlign="start stretch" class="full-width">
+  <mat-card class="remove-padding dashboard-card">
+    <div fxLayout="row" fxLayoutAlign="space-between center" class="full-width">
+<div class="{{card.backgroundColor}} card-height" fxFlex="35" fxLayout="column" fxLayoutAlign="center center" class="full-width">
+<mat-icon>{{ card.icon }}</mat-icon>
+</div>
+<div fxFlex="65" fxLayout="column" fxLayoutAlign="center start" class="full-width">
+  <h3>{{ card.title }}</h3>
+  <h1 class="bold">{{ card.figure }}</h1>
+</div>
+      </div>
+  </mat-card>
+</div>
+</div>
+<div fxLayout="row" fxLayoutAlign="space-between center" class="full-width">
+  <mat-card fxFlex="49" class="dashboard-card">
+    <h2 class="bold">Task Chart</h2>
+    <canvas baseChart
+    [data]="doughnutChartData"
+    [labels]="doughnutChartLabels"
+    [chartType]="doughnutChartType">
+  </canvas>
+    </mat-card>
+
+    <mat-card fxFlex="49" class="dashboard-card">
+      <h2 class="bold">Task Chart</h2>
+        <canvas baseChart
+        [data]="doughnutChartData"
+        [labels]="doughnutChartLabels"
+        [chartType]="doughnutChartType">
+      </canvas>
+    </mat-card>
+</div>
+</div>

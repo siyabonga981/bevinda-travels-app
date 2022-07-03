@@ -1,0 +1,33 @@
+Admin Panel
+1 Login page
+    name
+    email
+    password
+
+2 Clients
+    Corporate
+        Staff to fill up the company name and address
+    Private
+        Staff to fill up the address
+
+3 Reservations
+    Capture new booking
+    Edit booking/s 
+    Store all past bookings
+    View booking/s
+    
+4 Invoices (Manual)
+    Capture new invoice
+    View invoice/s 
+    Edit invoice/s
+
+5 Specials
+    Refer a friend and get 1 night free at any town lodge or road lodge in South Africa.
+    Referer
+    Friend
+    Date of referral
+    Date of booking
+    Redeemed Status
+
+6 Upcoming Bookings Stay
+

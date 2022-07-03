@@ -1,0 +1,21 @@
+	Book a hotel
+WhatsApp us on #number
+Call us on #number
+Email us on #email address
+	Contact Form
+Check in date
+#nights
+#adults
+#traveling to e.g Cape Town
+contact name and #
+Company Name (Only for Backend)
+submit button/icon
+
+After submission, have an auto-reply "One of our consultants will contact you shortly"
+
+Reviews will be sent as well as the about us
+
+Specials
+        Refer a friend and get 1 night free at any town lodge or road lodge in South Africa.
+
+Contact us - replicate the book a hotel page with few modifications

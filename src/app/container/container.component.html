@@ -1,0 +1,76 @@
+<div fxLayout="column" fxLayoutAlign="start stretch" class="full-width">
+<mat-toolbar class="toolbar white-background" fxLayout="row" fxLayoutAlign="space-between center">
+<div fxFlex="20" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="1">
+<!-- <span class="primary-color">Bevinda <mat-icon (click)="sidenav.toggle()">flight</mat-icon> Travels</span>
+ -->
+ <img src="../../assets/img/Plain Logo.png" alt="" height="30">
+</div>
+
+<div fxFlex="50" fxLayout="column" fxLayoutAlign="center end">
+  <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="5rem">
+    <div *ngIf="false" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="1rem">
+    <mat-icon matTooltip="reviews" matBadge="15" matBadgeColor="warn">chat</mat-icon>
+    <mat-icon matTooltip="messages" matBadge="29" matBadgeColor="warn">email</mat-icon>
+    </div>
+    <div  class="primary-color" [matMenuTriggerFor]="menu" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap=".5rem">
+      <label class="small-font primary-color">My account</label>
+      <mat-icon>expand_more</mat-icon>
+      <mat-icon>power_settings_new</mat-icon>
+      <mat-menu #menu="matMenu">
+        <button mat-menu-item>
+          <mat-icon>person</mat-icon>
+          <span>Profile</span>
+        </button>
+        <button mat-menu-item disabled>
+          <mat-icon>voicemail</mat-icon>
+          <span>Check voice mail</span>
+        </button>
+        <button mat-menu-item>
+          <mat-icon>notifications_off</mat-icon>
+          <span>Disable alerts</span>
+        </button>
+      </mat-menu>
+      </div>
+</div>
+</div>
+
+
+</mat-toolbar>
+
+<mat-drawer-container class="sidenav-container full-width">
+  <mat-drawer class="sidenav" opened #sidenav mode="side">
+<div fxLayout="column" fxLayoutAlign="center center" class="full-width">
+  <div class="avatar" fxLayoutAlign="center center">
+    <img src="../../assets/img/avatar.png" alt="">
+  </div>
+</div>
+    <mat-selection-list class="sidenav-items-wrapper" [multiple]="false">
+      <mat-list-option class="margin15px" (click)="redirect(nav['route'])" *ngFor="let nav of sidenavItems; let i = index" [routerLink]="nav['route']" routerLinkActive="active" [value]="nav">
+        <div fxLayout="row" class="margin15px marginLeft20px" fxLayoutAlign="start center" fxLayoutGap=".8em">
+          <mat-icon class="normal-font" [class]="nav.class">{{ nav['icon'] }}</mat-icon>
+          <h3 class="bold small-font">{{ nav['name'] }}</h3>
+      </div>
+      </mat-list-option>
+    </mat-selection-list>
+
+    <!-- <div (click)="redirect(nav['name'])" *ngFor="let nav of sidenavItems; let i = index" [routerLink]="nav['route']" routerLinkActive="active" fxLayout="column" [style.margin-top]="(i == 0) ? '10px !important' : ''" class="borderBottom" fxLayoutAlign="start start"
+    [ngClass]="(i == sidenavItems.length - 1 ) ?  'none' : ''">
+    <div fxLayout="row" class="margin15px marginLeft20px" fxLayoutAlign="center start" fxLayoutGap="10px">
+        <mat-icon [style.color]="(i == sidenavItems.length - 1 ) ? '#00a3bf !important' : ''" [class]="nav.class">{{ nav['icon'] }}</mat-icon>
+        <h3 class="bold font-size18px">{{ nav['name'] }}</h3>
+    </div>
+</div> -->
+  </mat-drawer>
+  <mat-drawer-content class="drawer-content full-width white-background">
+
+    <div class="padding20px" fxLayout="column" fxLayoutAlign="start stretch">
+      <router-outlet></router-outlet>
+    </div>
+
+    <div class="footer blue-background full-width" fxLayout="column" fxLayoutAlign="center center">
+        <p class="bold">Powered by <a href="https://webgooru.co.za">WEBGOORU</a></p>
+    </div>
+
+  </mat-drawer-content>
+</mat-drawer-container>
+</div>

@@ -1,0 +1,175 @@
+/* You can add global styles to this file, and also import other style files */
+
+// colors
+$white: #fff;
+$grey: #e6eef1;
+$red: #cd1d4a;
+$purple: #495bb0;
+$green: #4caf52;
+$black: #000;
+// $primary-color: #00AAF8;
+$primary-color: #03245c;
+
+html,
+body {
+  height: 100%;
+}
+
+body, h1, h2, h3, h4, h5, p, .remove-margin, .remove-padding {
+  margin: 0 !important;
+  padding: 0 !important;
+  font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+// measurements
+.full-width, app-home, app-container  {
+  width: 100%;
+}
+
+.full-height{
+  height: 100%;
+}
+// backgrounds
+
+.white-background {
+  background: $white;
+}
+
+.red-background {
+  background: $red;
+}
+
+.green-background {
+  background: $green;
+}
+
+.blue-background, .mat-slider-thumb,  .mat-slider-track-fill{
+  background-color: $primary-color;
+}
+
+.purple-background {
+  background: $purple;
+}
+
+.primary-color{
+  color: $primary-color;
+}
+
+.white-color{
+  color: $white;
+}
+// Font sizes
+.small-font{
+  font-size: .85rem !important;
+}
+
+.normal-font{
+  font-size: 1rem !important;
+}
+
+.bold{
+  font-weight: bold !important;
+}
+.toolbar {
+  color: $white !important;
+  position: relative;
+  z-index: 5;
+  box-shadow: 0px 1px 5px 0px rgb(0 0 0 / 67%) !important;
+}
+
+.footer{
+  position: absolute;
+  bottom: 0;
+  padding: 10px 0;
+  p{
+    font-size: .9rem;
+    a{
+      color: $white;
+      text-decoration: none;
+    }
+  }
+}
+
+.login-container {
+  background: url("./assets/img/login-background.jpg");
+  height: 100%;
+  width: 100%;
+  background-size: cover;
+  .overlay {
+    background: rgba(0, 0, 0, 0.7);
+  }
+}
+
+.login-form-container {
+  width: 15rem;
+  height: 14rem;
+}
+
+.sidenav-container {
+  height: calc(100vh - 64px);
+  .mat-list-base .mat-list-item, .mat-list-base .mat-list-option{
+    height: 2rem !important;
+  }
+}
+
+.avatar{
+  width: 6rem;
+  height: 6rem;
+  border-radius: 50%;
+  background: $white;
+  margin: 1rem auto;
+  img{
+    height: 4rem;
+  }
+}
+.sidenav {
+  width: 220px;
+  background-color: $primary-color;
+}
+
+.sidenav-items-wrapper .material-icons{
+    height: 19px;
+    width: 19px;
+    font-size: 1.3rem !important;
+}
+
+.active{
+  background: $white !important;
+  color: $primary-color !important;
+  &:hover{
+    background: $white !important;
+    color: $primary-color !important;
+  }
+}
+
+
+
+.drawer-content {
+  background: $grey;
+  overflow-y: scroll;
+  height: 100%;
+  width: calc(100% - 220px);
+}
+
+.dashboard-card{
+  .material-icons{
+    height: 3rem;
+    width: 3rem;
+    font-size: 3rem;
+    color: $white;
+  }
+  h3, h1 {
+    padding-left: 1.5rem !important;
+  }
+}
+
+.card-height{
+  height: 6rem;
+}
+.padding20px {
+  padding: 20px;
+}
+
+.margin15px{
+  margin: 15px 0 !important;
+}
