@@ -1,0 +1,9 @@
+<div fxLayout="column" fxLayoutAlign="center space-between" fxLayoutGap="20px">
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <h3 class="bold"> {{ data }}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+        <button [mat-dialog-close]="true" mat-raised-button color="warn">Yes</button>
+        <button [mat-dialog-close]="false" mat-raised-button class="blueBackground whiteColor">No</button>
+    </div>
+</div>

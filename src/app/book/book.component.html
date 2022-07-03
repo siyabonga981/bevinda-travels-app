@@ -1,0 +1,110 @@
+<app-toolbar></app-toolbar>
+<div class="spinner" *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-progress-spinner [mode]="mode">
+  </mat-progress-spinner>
+</div>
+<div class="web-height" style="position: relative; z-index: 2 !important;" fxLayout="row" fxLayoutAlign="start stretch">
+  <div class="fullWidth"  fxLayout="column" fxLayoutAlign="center center">
+    <mat-card style="top: -16px !important;" class="padding10px relative" fxLayout="column" fxLayoutAlign="center center">
+      <mat-card-content  class="fullWidth" fxLayout="column" fxLayoutAlign="center center">
+        <form [formGroup]="bookingForm">
+            <div fxLayout="column" fxLayoutAlign="center center">
+                <h3 class="bold">Call, Email, WhatsApp us or book below</h3>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap=".5rem">
+              <mat-icon>phone</mat-icon> <span><a style="text-decoration: none;" href="tel:+27 74 237 0684">074 237 0684</a> </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="start center" fxLayoutGap=".5rem">
+              <mat-icon>mail</mat-icon> <span><a style="text-decoration: none;" href="mailto:bookings@bevindatravels.co.za">bookings@bevindatravels.co.za</a> </span>
+            </div>
+            <div fxLayout="row" fxLayoutAlign="space-between center"  fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" placeholder="First name" required>
+                    <mat-error *ngIf="
+                        bookingForm.get('firstName')?.touched &&
+                        bookingForm.get('firstName').hasError('required')
+                      "
+                      >First name is required!
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" placeholder="Last name" required>
+                    <mat-error *ngIf="
+                        bookingForm.get('lastName')?.touched &&
+                        bookingForm.get('lastName').hasError('required')
+                      "
+                      >Last name is required!
+                    </mat-error>
+                  </mat-form-field>
+            </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center"  fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone" placeholder="Phone" required>
+                  <mat-error *ngIf="
+                        bookingForm.get('phone')?.touched &&
+                        bookingForm.get('phone').hasError('required')
+                      "
+                      >Phone is required!
+                    </mat-error>
+              </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Traveling To</mat-label>
+                  <input matInput formControlName="travelingTo" placeholder="e.g Cape Town" required>
+                  <mat-error *ngIf="
+                        bookingForm.get('travelingTo')?.touched &&
+                        bookingForm.get('travelingTo').hasError('required')
+                      "
+                      >Traveling To is required!
+                    </mat-error>
+              </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="space-between center"  fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                  <mat-label>No. Of Nights</mat-label>
+                  <input type="number" formControlName="noOfNights" matInput required>
+                </mat-form-field>
+              </div>
+
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                  <mat-label>No. Of Adults</mat-label>
+                  <input type="number" formControlName="noOfAdults" matInput required>
+                </mat-form-field>
+              </div>
+            </div>
+
+            <div fxLayout="row" fxLayoutAlign="start stretch">
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Check In Date</mat-label>
+                  <input readonly formControlName="checkInDate" matInput [matDatepicker]="picker" (click)="picker.open()" required>
+                  <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                  <mat-datepicker #picker></mat-datepicker>
+                </mat-form-field>
+              </div>
+            </div>
+            <small class="bold" *ngIf="showMessage">Booking Submitted, An Agent will Contact You Soon!</small>
+            <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                <button [disabled]="!bookingForm.valid" [mat-dialog-close]="bookingForm.value" (click)="saveBooking(bookingForm)" class="greenBackground whiteColor" mat-raised-button>Make Booking</button>
+            </div>
+        </form>
+      </mat-card-content>
+    </mat-card>
+
+  </div>
+</div>

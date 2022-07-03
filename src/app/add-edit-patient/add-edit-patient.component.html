@@ -1,0 +1,226 @@
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+
+            <div fxLayout="row" fxLayoutAlign="space-between center">
+                <h1 *ngIf="!data?.title" class="bold">Add client</h1>
+                <h1 *ngIf="data?.title" class="bold">Edit client</h1>
+                <div mat-dialog-close class="pointer" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="10px">
+                    <h2 *ngIf="data?.title || router.url.includes(['home'])" class="bold redColor noMargin">Cancel </h2>
+                    <mat-icon *ngIf="(router.url.includes(['home'])) || (router.url.includes(['clients']) && data?.title)" class="redColor">highlight_off</mat-icon>
+
+                </div>
+            </div>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-card>
+                    <mat-card-content class="stepperHeight">
+                        <div *ngIf="!data?.title" class="padding10px" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+                                <button routerLink="../" mat-raised-button class="primaryBlueBtn whiteColor">
+                                    <mat-icon class="font20px">arrow_back</mat-icon> Back To Clients
+                                </button>
+                            </div>
+                            <div *ngI f="false" fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                <mat-form-field appearance="legacy">
+                                    <mat-label>Enter phone number to resume application</mat-label>
+                                    <input #input (keyup)="checkExisitingApplication(input.value)" matInput placeholder="Enter ID to resume" required>
+                                </mat-form-field>
+                            </div>
+                        </div>
+                        <mat-horizontal-stepper [formGroup]="clientForm" linear #stepper>
+                            <mat-step [stepControl]="personalDetails" editable>
+                                <div [formGroup]="personalDetails">
+                                    <ng-template matStepLabel>Personal Details</ng-template>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <h3 class="bold">Client Details</h3>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                            <mat-form-field appearance="legacy">
+                                                <mat-label>First Name</mat-label>
+                                                <input matInput formControlName="firstName" placeholder="First name" required>
+                                                <mat-error *ngIf="
+                                                    clientForm.get('firstName')?.touched &&
+                                                    clientForm.get('firstName').hasError('required')
+                                                  "
+                                                  >First name is required!
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                            <mat-form-field appearance="legacy">
+                                                <mat-label>Last Name</mat-label>
+                                                <input matInput formControlName="lastName" placeholder="Last name" required>
+                                                <mat-error *ngIf="
+                                                    clientForm.get('lastName')?.touched &&
+                                                    clientForm.get('lastName').hasError('required')
+                                                  "
+                                                  >Last name is required!
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                        <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                          <mat-form-field appearance="legacy">
+                                              <mat-label>Client Type</mat-label>
+                                              <mat-select formControlName="clientType" matInput required>
+                                                  <mat-option value="Corporate">Corporate</mat-option>
+                                                  <mat-option value="Private">Private</mat-option>
+                                              </mat-select>
+                                              <mat-error *ngIf="
+                                                    clientForm.get('clientType')?.touched &&
+                                                    clientForm.get('clientType').hasError('required')
+                                                  "
+                                                  >Client Type is required!
+                                                </mat-error>
+                                          </mat-form-field>
+                                      </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                          <mat-form-field appearance="legacy">
+                                            <mat-label>Date of birth</mat-label>
+                                            <input readonly formControlName="dob" matInput [matDatepicker]="picker" (click)="picker.open()">
+                                            <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                                            <mat-datepicker #picker></mat-datepicker>
+                                          </mat-form-field>
+
+                                        </div>
+                                        <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                          <mat-form-field appearance="legacy">
+                                            <mat-label>Gender</mat-label>
+                                            <mat-select formControlName="gender" matInput required>
+                                                <mat-option value="Male">Male</mat-option>
+                                                <mat-option value="Female">Female</mat-option>
+                                                <mat-option value="Other">Rather not say</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="
+                                                  clientForm.get('gender')?.touched &&
+                                                  clientForm.get('gender').hasError('required')
+                                                "
+                                                >Gender is required!
+                                              </mat-error>
+                                        </mat-form-field>
+                                        </div>
+                                        <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                            <mat-form-field appearance="legacy">
+                                                <mat-label>Nationality</mat-label>
+                                                <input matInput formControlName="nationality" placeholder="Nationality" required>
+                                                <mat-error *ngIf="
+                                                    clientForm.get('nationality')?.touched &&
+                                                    clientForm.get('nationality').hasError('required')
+                                                  "
+                                                  >Nationality is required!
+                                                </mat-error>
+                                              </mat-form-field>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <h3 class="bold">Address & Contact Details</h3>
+                                    </div>
+                                    <div fxLayout="column" [formGroup]="clientAddress">
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Street</mat-label>
+                                                    <input matInput formControlName="street" placeholder="Street" required>
+                                                    <mat-error *ngIf="
+                                                    clientForm.get('street')?.touched &&
+                                                    clientForm.get('street').hasError('required')
+                                                  "
+                                                  >Street is required!
+                                                </mat-error>
+                                                  </mat-form-field>
+                                            </div>
+                                            <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Town</mat-label>
+                                                    <input matInput formControlName="town" placeholder="Town" required>
+                                                    <mat-error *ngIf="
+                                                    clientForm.get('town')?.touched &&
+                                                    clientForm.get('town').hasError('required')
+                                                  "
+                                                  >Town is required!
+                                                </mat-error>
+                                                  </mat-form-field>
+                                            </div>
+                                            <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>City</mat-label>
+                                                    <input matInput formControlName="city" placeholder="City" required>
+                                                    <mat-error *ngIf="
+                                                    clientForm.get('city')?.touched &&
+                                                    clientForm.get('city').hasError('required')
+                                                  "
+                                                  >City is required!
+                                                </mat-error>
+                                                  </mat-form-field>
+                                            </div>
+                                        </div>
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Postal Code</mat-label>
+                                                    <input matInput formControlName="code" placeholder="Postal Code" required>
+                                                    <mat-error *ngIf="
+                                                    clientForm.get('code')?.touched &&
+                                                    clientForm.get('code').hasError('required')
+                                                  "
+                                                  >Postal Code is required!
+                                                </mat-error>
+                                                  </mat-form-field>
+                                            </div>
+                                            <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Email</mat-label>
+                                                    <input matInput formControlName="email" placeholder="Email">
+                                                  </mat-form-field>
+                                            </div>
+                                            <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
+                                                <mat-form-field appearance="legacy">
+                                                    <mat-label>Phone</mat-label>
+                                                    <input matInput formControlName="phone" placeholder="Phone" required>
+                                                    <mat-error *ngIf="
+                                                    clientForm.get('firstName')?.touched &&
+                                                    clientForm.get('firstName').hasError('required')
+                                                  "
+                                                  >First name is required!
+                                                </mat-error>
+                                                  </mat-form-field>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                        <button *ngIf="!data?.edit" [disabled]="!clientAddress.valid" [mat-dialog-close]="clientForm.value" (click)="saveProgress(clientForm)" class="greenBackground whiteColor" mat-raised-button>Save New Client</button>
+                                        <button *ngIf="data?.edit" [disabled]="!clientAddress.valid" [mat-dialog-close]="clientForm.value" class="greenBackground whiteColor" mat-raised-button>Update Client</button>
+                                        <button *ngIf="formSaved" #stepper class="primaryBlueBtn whiteColor" mat-raised-button matStepperNext>Next</button>
+                                    </div>
+                                </div>
+                            </mat-step>
+                            <mat-step>
+                                <ng-template matStepLabel>Done</ng-template>
+                                <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                                    <div fxFlex="35" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                        <img src="assets/img/complete.png" alt="">
+                                    </div>
+                                    <div fxFlex="38" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                        <div fxLayout="row" fxLayoutAlign="space-between center">
+                                            <h1 class="bold primaryBlue congratsText">Congratulations
+                                                <mat-icon>celebration</mat-icon>
+                                            </h1>
+                                        </div>
+                                        <h3 class="greenColor bold">You have successfully completed the client registration.</h3>
+                                        <button *ngIf="false" routerLink="../../prescriptions/addPrescription" mat-raised-button class="primaryBlueBtn whiteColor">Managing Prescriptions</button>
+                                        <button *ngIf="false" routerLink="../../appointments/createAppointment" class="primaryDarkGreyBtn whiteColor" mat-raised-button matStepperPrevious>Booking Appointments</button>
+                                        <button *ngIf="false" routerLink="../../billing/createInvoice" mat-raised-button class="primaryBlueBtn whiteColor">Billing client</button>
+                                    </div>
+                                </div>
+                            </mat-step>
+                        </mat-horizontal-stepper>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

@@ -1,0 +1,193 @@
+<div
+  class="spinner"
+  *ngIf="spinner"
+  fxLayout="row"
+  fxLayoutAlign="center center"
+  fxFill
+>
+  <mat-progress-spinner [mode]="mode"> </mat-progress-spinner>
+</div>
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+  <div
+    fxFlex="100"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="0.5em"
+  >
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxLayout="column" fxLayoutAlign="start stretch">
+        <h1 *ngIf="!data?.title" class="bold noMargin">New Reservation</h1>
+        <h1 *ngIf="data?.title" class="bold noMargin">{{ data?.title }}</h1>
+      </div>
+      <div
+        mat-dialog-close
+        class="pointer"
+        fxLayout="row"
+        fxLayoutAlign="space-between center"
+        fxLayoutGap="10px"
+      >
+        <h2 *ngIf="data?.title" class="bold redColor noMargin">Cancel</h2>
+        <mat-icon *ngIf="data?.title" class="redColor">highlight_off</mat-icon>
+      </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div class="padding20px" fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-card>
+          <mat-card-content class="cardHeight">
+            <div
+              *ngIf="!data?.title"
+              class="padding10px"
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+            >
+              <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+                <button
+                  routerLink="../"
+                  mat-raised-button
+                  class="primaryBlueBtn whiteColor"
+                >
+                  <mat-icon class="font20px">arrow_back</mat-icon> Back To
+                  Reservations
+                </button>
+              </div>
+            </div>
+            <form class="padding20px" [formGroup]="reservationForm" fxLayout="column" fxLayoutAlign="start stretch">
+              <div fxLayout="row" fxLayoutAlign="space-between center"  fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                  <mat-form-field appearance="legacy">
+                      <mat-label>First Name</mat-label>
+                      <input matInput formControlName="firstName" placeholder="First name" required>
+                      <mat-error *ngIf="
+                          reservationForm.get('firstName')?.touched &&
+                          reservationForm.get('firstName').hasError('required')
+                        "
+                        >First name is required!
+                      </mat-error>
+                    </mat-form-field>
+              </div>
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                  <mat-form-field appearance="legacy">
+                      <mat-label>Last Name</mat-label>
+                      <input matInput formControlName="lastName" placeholder="Last name" required>
+                      <mat-error *ngIf="
+                          reservationForm.get('lastName')?.touched &&
+                          reservationForm.get('lastName').hasError('required')
+                        "
+                        >Last name is required!
+                      </mat-error>
+                    </mat-form-field>
+              </div>
+              <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                  <mat-label>Phone</mat-label>
+                  <input matInput formControlName="phone" placeholder="Phone" required>
+                  <mat-error *ngIf="
+                        reservationForm.get('phone')?.touched &&
+                        reservationForm.get('phone').hasError('required')
+                      "
+                      >Phone is required!
+                    </mat-error>
+              </mat-form-field>
+              </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="space-between center"  fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Traveling To</mat-label>
+                    <input matInput formControlName="travelingTo" placeholder="e.g Cape Town" required>
+                    <mat-error *ngIf="
+                          reservationForm.get('travelingTo')?.touched &&
+                          reservationForm.get('travelingTo').hasError('required')
+                        "
+                        >Traveling To is required!
+                      </mat-error>
+                </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Hotel</mat-label>
+                    <input type="text" formControlName="hotel" matInput required>
+                    <mat-error *ngIf="
+                          reservationForm.get('hotel')?.touched &&
+                          reservationForm.get('hotel').hasError('required')
+                        "
+                        >Hotel is required!
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>No. Of Nights</mat-label>
+                    <input type="number" formControlName="noOfNights" matInput required>
+                    <mat-error *ngIf="
+                          reservationForm.get('noOfNights')?.touched &&
+                          reservationForm.get('noOfNights').hasError('required')
+                        "
+                        >No. Of Nights is required!
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+              </div>
+
+              <div fxLayout="row" fxLayoutAlign="space-between center"  fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30" fxFlex.xs="100">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>No. Of Adults</mat-label>
+                    <input type="number" formControlName="noOfAdults" matInput required>
+                    <mat-error *ngIf="
+                          reservationForm.get('noOfAdults')?.touched &&
+                          reservationForm.get('noOfAdults').hasError('required')
+                        "
+                        >No. Of Adults is required!
+                      </mat-error>
+                  </mat-form-field>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Check In Date</mat-label>
+                    <input readonly formControlName="checkInDate" matInput [matDatepicker]="picker" (click)="picker.open()" (click)="picker.open()" required>
+                    <mat-error *ngIf="
+                          reservationForm.get('checkInDate')?.touched &&
+                          reservationForm.get('checkInDate').hasError('required')
+                        "
+                        >Check In Date is required!
+                      </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker"></mat-datepicker-toggle>
+                    <mat-datepicker #picker></mat-datepicker>
+                  </mat-form-field>
+                </div>
+
+                <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="30">
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Check Out Date</mat-label>
+                    <input readonly formControlName="checkOutDate" matInput [matDatepicker]="picker2" (click)="picker2.open()" required>
+                    <mat-error *ngIf="
+                          reservationForm.get('checkOutDate')?.touched &&
+                          reservationForm.get('checkOutDate').hasError('required')
+                        "
+                        >Check Out Date is required!
+                      </mat-error>
+                    <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                    <mat-datepicker #picker2></mat-datepicker>
+                  </mat-form-field>
+                </div>
+              </div>
+              <div *ngIf="!data?.title" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                  <button [disabled]="!reservationForm.valid" [mat-dialog-close]="reservationForm.value" (click)="saveReservation(reservationForm)" class="greenBackground whiteColor mt-3" mat-raised-button>Make Reservation</button>
+              </div>
+              <div *ngIf="data?.title" fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                <button [disabled]="!reservationForm.valid" [mat-dialog-close]="reservationForm.value" class="greenBackground whiteColor mt-3" mat-raised-button>Update Reservation</button>
+            </div>
+          </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
+</div>

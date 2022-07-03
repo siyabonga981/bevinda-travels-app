@@ -1,0 +1,49 @@
+<div fxLayout="row" fxLayoutAlign="start stretch">
+  <div fxFlex="100" fxFill fxLayout="column" fxLayoutAlign="start stretch">
+      <div class="height50px padding20px toolbar" [ngClass.xs]="['height45px']" fxLayout="row" fxLayoutAlign="space-between center" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center" fxLayout.xs="column" fxLayout.sm="column" fxLayoutGap.xs="20px">
+          <div fxFlex="40" fxFlex.xs="100" fxLayout="row" fxLayoutAlign="start center" fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center" class="pointer" fxLayoutGap="15px"> <img src="../../assets/img/Plain Logo.png" class="logo" [ngClass.xs]="['logo-sm', 'mt-1']" [ngClass.sm]="['logo-sm']" alt="">
+          </div>
+          <div fxFlex="40" fxFlex.xs="100" fxLayout="column" fxLayoutAlign="center flex-end"  fxLayoutAlign.sm="center center" fxLayoutAlign.xs="center center">
+            <h5 class="bold noMargin font17px" [ngClass.xs]="['break-text-sm']">
+              HOTEL BOOKINGS FOR BUSINESS AND LEISURE TRAVELS
+            </h5>
+          </div>
+      </div>
+      <div fxFlex="100" fxFill fxLayout="column" fxLayoutAlign="start stretch" [ngClass.xs]="['height40px']">
+        <div class="height50px padding20px blueBackground" [ngClass.xs]="['height40px']" fxLayout="row" fxLayoutAlign="center center" fxLayoutAlign.sm="space-between center" fxLayoutAlign.xs="space-between center">
+          <span [fxHide.lg]="true" class="bold whiteColor">{{ (router.url === "/landing" ) ? 'HOME' : router.url.replace('/', '') | uppercase }} </span>
+          <button [fxHide.lg]="true" mat-icon-button [matMenuTriggerFor]="menu" aria-label="Example icon-button with a menu">
+            <mat-icon class="whiteColor">menu</mat-icon>
+          </button>
+          <mat-menu #menu="matMenu">
+            <button [routerLink]="nav.route" *ngFor="let nav of navItems" mat-menu-item>
+              <span >{{ nav.name }}</span>
+            </button>
+          </mat-menu>
+
+          <div [fxHide.sm]="true" [fxHide.xs]="true" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap="3em">
+            <span [routerLink]="nav.route" class="large-font bold whiteColor pointer navv-link" *ngFor="let nav of navItems" [value]="nav">
+              {{nav.name}}
+            </span>
+          </div>
+        </div>
+    </div>
+  </div>
+</div>
+<div class="absolute bottom-zero blueBackground fullWidth height-30" fxLayout="row" fxLayoutAlign="center center" fxLayoutGap=".7rem" fxLayoutGap.xs=".3rem">
+  <h2 class="whiteColor noMarginBottom" [ngClass.sm]="['small-font']" [ngClass.xs]="['break-text-sm']">SAVE TIME! </h2>
+  <h2 class="whiteColor noMarginBottom" [ngClass.sm]="['small-font']" [ngClass.xs]="['break-text-sm']">AVOID DISAPPOINTMENT!</h2>
+  <h2 class="whiteColor noMarginBottom" [ngClass.sm]="['small-font']" [ngClass.xs]="['break-text-sm']">TEXT OR CALL US TODAY! </h2>
+</div>
+<a href="https://wa.me/27742370684"><img class="absolute bottom-right" style="z-index: 9999999;" width="50px" height="50px" src="../../assets/img/app-icon.png" alt=""></a>
+
+
+<ul style="list-style: none !important;" class="cb-slideshow">
+  <li style="list-style: none !important;"><span></span><div></div></li>
+  <li style="list-style: none !important;"><span></span><div></div></li>
+  <li style="list-style: none !important;"><span></span><div></div></li>
+  <li style="list-style: none !important;"><span></span><div></div></li>
+  <li style="list-style: none !important;"><span></span><div></div></li>
+  <li style="list-style: none !important;"><span></span><div></div></li>
+</ul>
+

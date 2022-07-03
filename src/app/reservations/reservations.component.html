@@ -1,0 +1,47 @@
+<div class="spinner" *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center" fxFill>
+  <mat-progress-spinner [mode]="mode">
+  </mat-progress-spinner>
+</div>
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+  <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
+      <div fxLayout="column" fxLayoutAlign="start stretch">
+          <h1 class="bold">Booking Requests</h1>
+      </div>
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+          <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+              <mat-card>
+                  <mat-card-content class="cardHeight">
+                      <div class="padding10px" fxLayout="row" fxLayoutAlign="space-between center">
+                          <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end">
+                              <button routerLink="newReservation" mat-raised-button class="primaryBlueBtn whiteColor"> <mat-icon class="font20px">emoji_events</mat-icon> New Request</button>
+                          </div>
+                      </div>
+                      <div *ngIf="!reservations?.length" fxLayout="row" fxLayoutAlign="center stretch">
+                          <h1 class="bold">No results found</h1>
+                      </div>
+                      <div class="padding20px" *ngIf="reservations?.length > 0" fxLayout="row wrap" fxLayoutAlign="center center" >
+                        <mat-card class="padding20px rewards-card m-2" *ngFor="let reservation of reservations; let  i = index;" fxFlex="30">
+                          <mat-card-content>
+                            <div fxLayout="column" fxLayoutAlign="center start">
+                              <h2><span class="bold"> Requested by</span>: {{ reservation.firstName  }}</h2>
+                              <h3><span class="bold"> Last name</span>: {{ reservation.lastName }}</h3>
+                              <h3><span class="bold"> Request date</span>: {{ reservation.requestDate | date }}</h3>
+                              <h3><span class="bold"> Phone</span>: {{ reservation.phone }}</h3>
+                              <h3><span class="bold"> Traveling to</span>: {{ reservation.travelingTo }}</h3>
+                              <h3><span class="bold"> Check in date</span>: {{ reservation.checkInDate | date }}</h3>
+                              <h3><span class="bold"> No. of adults</span>: {{ reservation.noOfAdults }}</h3>
+                              <h3><span class="bold"> No. of nights</span>: {{ reservation.noOfNights }}</h3>
+                            </div>
+                      <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="1rem" class="mt-2">
+                        <button (click)="editReservation(reservation)" mat-raised-button class="primaryBlueBtn whiteColor"> <mat-icon class="font20px">edit</mat-icon> Edit </button>
+                        <button (click)="deleteReservationFromDB(reservation)" mat-raised-button class="redBackground whiteColor"> <mat-icon class="font20px">delete</mat-icon> Delete</button>
+                      </div>
+                          </mat-card-content>
+                        </mat-card>
+                    </div>
+                  </mat-card-content>
+              </mat-card>
+          </div>
+      </div>
+  </div>
+</div>

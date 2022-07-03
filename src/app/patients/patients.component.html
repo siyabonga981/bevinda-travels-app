@@ -1,0 +1,91 @@
+<div class="spinner" *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center" fxFill>
+    <mat-progress-spinner [mode]="mode">
+    </mat-progress-spinner>
+</div>
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <h1 class="bold">Clients</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-card>
+                    <mat-card-content [ngClass]="(router.url.includes('home') ? 'patientHeightHome' : '')" class="cardHeight">
+                        <div class="padding10px" fxLayout="row" fxLayoutAlign="space-between center">
+                          <mat-form-field appearance="legacy">
+                            <mat-label>Filter By Client Type</mat-label>
+                            <mat-select [(value)]="filterValue" (selectionChange)="filterClients($event)" matInput required>
+                                <mat-option value="Corporate">Corporate</mat-option>
+                                <mat-option value="Private">Private</mat-option>
+                            </mat-select>
+                        </mat-form-field>
+                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end">
+                                <button (click)="addNewClient()" mat-raised-button class="primaryBlueBtn whiteColor"> <mat-icon class="font20px">person_add</mat-icon> Add Client</button>
+                            </div>
+                        </div>
+                        <div *ngIf="!clients?.length" fxLayout="row" fxLayoutAlign="center stretch">
+                            <h1 class="bold">No results found</h1>
+                        </div>
+                        <div *ngIf="clients?.length" class="mat-elevation-z8">
+                            <table class="myTable fullWidth" mat-table [dataSource]="dataSource" matSort>
+
+                                <!--  First Name Column -->
+                                <ng-container matColumnDef="firstName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> First Name </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.personalDetails.firstName}} </td>
+                                </ng-container>
+
+                                <!--  Last Name Column -->
+                                <ng-container matColumnDef="lastName">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Last Name </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.personalDetails.lastName}} </td>
+                                </ng-container>
+
+
+                                <!-- ID Number Column -->
+                                <ng-container matColumnDef="clientType">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Client Type </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.personalDetails.clientType}} </td>
+                                </ng-container>
+
+                                <!-- Address Column -->
+                                <ng-container matColumnDef="address">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Address </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.personalDetails.clientAddress.street}}, {{row.personalDetails.clientAddress.town}}, {{row.personalDetails.clientAddress.city}}, {{row.personalDetails.clientAddress.code}} </td>
+                                </ng-container>
+
+                                <!-- Phone Column -->
+                                <ng-container matColumnDef="phone">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Phone </th>
+                                    <td mat-cell *matCellDef="let row"> {{row.personalDetails.clientAddress.phone}} </td>
+                                </ng-container>
+
+                                <!-- Action Column -->
+                                <ng-container matColumnDef="action">
+                                    <th mat-header-cell *matHeaderCellDef mat-sort-header> Action </th>
+                                    <td mat-cell *matCellDef="let row">
+                                        <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="5px">
+                                            <mat-icon (click)="editClient(row)" class="pointer primaryBlue">edit</mat-icon>
+                                            <mat-icon (click)="deleteClientFromDB(row)" class="pointer redColor">delete</mat-icon>
+                                            <!-- <mat-icon class="pointer orangeColor">manage_accounts</mat-icon> -->
+                                        </div>
+                                    </td>
+                                </ng-container>
+
+                                <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+                                <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+
+                                <!-- Row shown when there is no matching data. -->
+                                <tr class="mat-row" *matNoDataRow>
+                                    <td class="mat-cell" colspan="4">No data matching the filter "{{input.value}}"</td>
+                                </tr>
+                            </table>
+
+                            <mat-paginator [length]="clients?.length" [pageSize]="10" [pageSizeOptions]="[5, 10, 25, 100]" aria-label="Select page of users"></mat-paginator>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

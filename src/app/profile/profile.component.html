@@ -1,0 +1,206 @@
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <h1 class="bold">Profile</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-card>
+                    <mat-card-content class="cardHeight padding20px" style="overflow-y: hidden !important;">
+                        <div fxLayout="row" fxLayoutAlign="space-around center" fxLayoutGap="10px">
+                            <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                <h1 class="bold primaryBlue">Edit Profile
+                                </h1>
+                                <img width="100%" src="assets/img/edit2.png" alt="">
+                            </div>
+                            <div fxFlex="50" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                                <div>
+                                    <form [formGroup]="doctorForm">
+
+                                        <div fxLayout="column" fxLayoutAlign="start stretch">
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                <mat-form-field fxFlex="48" appearance="legacy">
+                                                    <mat-label>First Name</mat-label>
+                                                    <input readonly matInput type="text" formControlName="firstName" placeholder="First name" required>
+                                                    <mat-error *ngIf="
+                                                    doctorForm.get('firstName').touched &&
+                                                    doctorForm.get('firstName').hasError('required')
+                                                  "
+                                                  >First name is required!
+                                                </mat-error>
+                                                <mat-error *ngIf="
+                                                    doctorForm.get('firstName').touched
+                                                    && doctorForm.get('firstName').hasError('pattern')"
+                                                  >First name should only contain letters!
+                                                </mat-error>
+                                                </mat-form-field>
+
+                                                <mat-form-field fxFlex="48" appearance="legacy">
+                                                    <mat-label>Last Name</mat-label>
+                                                    <input readonly matInput type="text" formControlName="lastName" placeholder="Last name" required>
+                                                    <mat-error *ngIf="
+                                                    doctorForm.get('lastName').touched &&
+                                                    doctorForm.get('lastName').hasError('required')
+                                                  "
+                                                  >Last name is required!
+                                                </mat-error>
+                                                <mat-error *ngIf="
+                                                    doctorForm.get('lastName').touched
+                                                    && doctorForm.get('lastName').hasError('pattern')"
+                                                  >Last name should only contain letters!
+                                                </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                            <div fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="office">
+                                                <div fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="address">
+                                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <mat-form-field fxFlex="48" appearance="legacy">
+                                                            <mat-label>Street</mat-label>
+                                                            <input matInput type="text" formControlName="street" placeholder="Street" required>
+                                                            <mat-error *ngIf="
+                                                            address.get('street').touched
+                                                            && address.get('street').hasError('pattern')"
+                                                          >Street address is required!
+                                                        </mat-error>
+                                                        </mat-form-field>
+
+                                                        <mat-form-field fxFlex="48" appearance="legacy">
+                                                            <mat-label>Town</mat-label>
+                                                            <input matInput type="text" formControlName="town" placeholder="Town" required>
+                                                            <mat-error *ngIf="
+                                                            address.get('town').touched &&
+                                                            address.get('town').hasError('required')
+                                                          "
+                                                          >Town is required!
+                                                        </mat-error>
+                                                        <mat-error *ngIf="
+                                                            address.get('town').touched
+                                                            && address.get('town').hasError('pattern')"
+                                                          >Town should only contain letters!
+                                                        </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                        <mat-form-field fxFlex="48" appearance="legacy">
+                                                            <mat-label>Code</mat-label>
+                                                            <input matInput type="text" maxlength="4" formControlName="code" placeholder="Code" required>
+                                                            <mat-error *ngIf="
+                                                            address.get('code').touched &&
+                                                            address.get('code').hasError('required')
+                                                          "
+                                                          >Code is required!
+                                                        </mat-error>
+                                                        <mat-error *ngIf="
+                                                            address.get('code').touched
+                                                            && address.get('code').hasError('pattern')"
+                                                          >Code should only contain numbers!
+                                                        </mat-error>
+                                                        </mat-form-field>
+
+                                                        <mat-form-field fxFlex="48" appearance="legacy">
+                                                            <mat-label>Phone</mat-label>
+                                                            <input matInput type="text" formControlName="phone" minlength="10"  maxlength="10" placeholder="Phone in the form 07864134480" required>
+                                                            <mat-error *ngIf="
+                                                            address.get('phone').touched &&
+                                                            address.get('phone').hasError('required')
+                                                          "
+                                                          >Phone is required!
+                                                        </mat-error>
+                                                        <mat-error *ngIf="
+                                                            address.get('phone').touched
+                                                            && address.get('phone').hasError('pattern')"
+                                                          >Phone should only contain numbers!
+                                                        </mat-error>
+                                                        <mat-error *ngIf="
+                                                            address.get('phone').touched
+                                                            && address.get('phone').hasError('minlength')"
+                                                          >Phone should contain exactly 10 numbers!
+                                                        </mat-error>
+                                                        </mat-form-field>
+                                                    </div>
+
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div [style.margin-top]="((address.get('phone').touched
+                                        && address.get('phone').hasError('pattern'))) ? '1em !important' : ''" fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="role">
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                <mat-form-field fxFlex="48" appearance="legacy">
+                                                    <mat-label>Role ID</mat-label>
+                                                    <input readonly matInput type="text" formControlName="id" placeholder="Role ID" required>
+                                                     <mat-error *ngIf="
+                                                    role.get('id').touched &&
+                                                    role.get('id').hasError('required')
+                                                  "
+                                                  >Role ID is required!
+                                                </mat-error>
+                                                <mat-error *ngIf="
+                                                    role.get('id').touched
+                                                    && role.get('id').hasError('pattern')"
+                                                  >Role ID should only contain letters!
+                                                </mat-error>
+                                                </mat-form-field>
+
+                                                <mat-form-field fxFlex="48" appearance="legacy">
+                                                    <mat-label>Specialty</mat-label>
+                                                    <input readonly matInput type="text" formControlName="specialty" placeholder="Specialty" required>
+                                                     <mat-error *ngIf="
+                                                    role.get('specialty').touched &&
+                                                    role.get('specialty').hasError('required')
+                                                  "
+                                                  >Specialty is required!
+                                                </mat-error>
+                                                <mat-error *ngIf="
+                                                    role.get('specialty').touched
+                                                    && role.get('specialty').hasError('pattern')"
+                                                  >Specialty should only contain letters!
+                                                </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+
+                                        </div>
+                                        <div fxLayout="column" fxLayoutAlign="start stretch" [formGroup]="userDetails">
+                                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                                <mat-form-field fxFlex="48" appearance="legacy">
+                                                    <mat-label>Email</mat-label>
+                                                    <input readonly matInput type="text" formControlName="email" placeholder="Email" required>
+                                                     <mat-error *ngIf="
+                                                    userDetails.get('email').touched &&
+                                                    userDetails.get('email').hasError('required')
+                                                  "
+                                                  >Email is required!
+                                                </mat-error>
+                                                <mat-error *ngIf="
+                                                    userDetails.get('email').touched
+                                                    && userDetails.get('email').hasError('email')"
+                                                  >Email format incorrect!
+                                                </mat-error>
+                                                </mat-form-field>
+
+                                                <mat-form-field fxFlex="48" appearance="legacy">
+                                                    <mat-label>Password</mat-label>
+                                                    <input matInput readonly type="password" minlength="8" formControlName="password" placeholder="Password" required>
+                                                     <mat-error *ngIf="
+                                                    userDetails.get('password').touched &&
+                                                    userDetails.get('password').hasError('required')
+                                                  "
+                                                  >Password is required!
+                                                </mat-error>
+                                                </mat-form-field>
+                                            </div>
+
+                                        </div>
+                                        <button [disabled]="!doctorForm.valid" (click)="updateAgent(doctorForm.value)" mat-raised-button class="primaryBlueBtn whiteColor">Update</button>
+                                    </form>
+                                </div>
+                            </div>
+                        </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

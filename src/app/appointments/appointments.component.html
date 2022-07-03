@@ -1,0 +1,214 @@
+<div class="spinner" *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center" fxFill>
+    <mat-progress-spinner [mode]="mode">
+    </mat-progress-spinner>
+</div>
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <h1 class="bold">Appointments</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-card>
+                    <mat-card-content class="appointments-card-height padding10px">
+                        <div fxLayout="row" fxLayoutAlign="end center">
+                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end">
+                                <button (click)="openAddAppointmentDialog()" mat-raised-button class="primaryBlueBtn whiteColor"> <mat-icon class="font20px">book_online</mat-icon> Create Appointment</button>
+                            </div>
+                        </div>
+                        <div class="row text-center mt-2">
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <div class="btn btn-primary" mwlCalendarPreviousView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                        Previous
+                                    </div>
+                                    <div class="btn btn-outline-secondary" mwlCalendarToday [(viewDate)]="viewDate">
+                                        Today
+                                    </div>
+                                    <div class="btn btn-primary" mwlCalendarNextView [view]="view" [(viewDate)]="viewDate" (viewDateChange)="closeOpenMonthViewDay()">
+                                        Next
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="col-md-4">
+                                <h3 class="today bold font20px">{{ viewDate | calendarDate:(view + 'ViewTitle'):'en' }}</h3>
+                            </div>
+                            <div class="col-md-4">
+                                <div class="btn-group">
+                                    <div class="btn btn-primary" (click)="setView(CalendarView.Month)" [class.active]="view === CalendarView.Month">
+                                        Month
+                                    </div>
+                                    <div class="btn btn-primary" (click)="setView(CalendarView.Week)" [class.active]="view === CalendarView.Week">
+                                        Week
+                                    </div>
+                                    <div class="btn btn-primary" (click)="setView(CalendarView.Day)" [class.active]="view === CalendarView.Day">
+                                        Day
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        <br />
+                        <div [ngSwitch]="view">
+                            <mwl-calendar-month-view *ngSwitchCase="CalendarView.Month" [viewDate]="viewDate" [events]="events" [refresh]="refresh" [activeDayIsOpen]="activeDayIsOpen" (dayClicked)="dayClicked($event.day)" (eventClicked)="handleEvent('Clicked', $event.event, $event)"
+                                (eventTimesChanged)="eventTimesChanged($event)">
+                            </mwl-calendar-month-view>
+                            <mwl-calendar-week-view *ngSwitchCase="CalendarView.Week" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event, $event)" (eventTimesChanged)="eventTimesChanged($event)">
+                            </mwl-calendar-week-view>
+                            <mwl-calendar-day-view *ngSwitchCase="CalendarView.Day" [viewDate]="viewDate" [events]="events" [refresh]="refresh" (eventClicked)="handleEvent('Clicked', $event.event, $event)" (eventTimesChanged)="eventTimesChanged($event)">
+                            </mwl-calendar-day-view>
+                        </div>
+
+                        <ng-template [ngIf]="!editAppointment && showAddDialog" #dialogContent>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <form #appointmentForm="ngForm">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Appointment Title</mat-label>
+                                            <input required matInput #appointment.title placeholder="Enter Appointment Title" name="title" type="text" [(ngModel)]="appointment.title" />
+                                            <mat-error *ngIf="appointmentForm.controls.title?.touched && appointmentForm.controls.title.errors?.required">Appointment title is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <div fxLayout="row" style="width: 180px;" fxLayoutAlign="space-between center" fxLayoutGap="0.1em">
+
+                                            <span style="color: rgb(121, 116, 116) !important">Colour Code:</span> <input required #appointment.primaryColor disabled name="primaryColor" type="color" [(ngModel)]="appointment.primaryColor" (change)="refresh.next()"
+                                            />
+                                        </div>
+                                    </div>
+
+
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Start Date & Time</mat-label>
+                                            <input required matInput #appointment.start name="start" [(minDate)]="minDate" class="pointer flat-pickr-input" type="text" mwlFlatpickr [(ngModel)]="appointment.start" (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
+                                                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Start Date & Time" />
+                                            <mat-error *ngIf="appointmentForm.controls.start?.touched && appointmentForm.controls.start.errors?.required">Start Date & time is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>End Date & Time</mat-label>
+                                            <input required matInput class="pointer flat-pickr-input" [(minDate)]="minDateEnd" matInput #appointment.end name="end" type="text" mwlFlatpickr [(ngModel)]="appointment.end" (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true"
+                                                [enableTime]="true" dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="End Date & Time" />
+                                            <mat-error *ngIf="appointmentForm.controls.end?.touched && appointmentForm.controls.end.errors?.required">End Date & time is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Fetch Patient with ID</mat-label>
+                                            <input #patientID matInput name="patientID" (keyup)="getPatientFromAPI(patientID.value)" />
+                                            <mat-error *ngIf="appointmentForm.controls?.patientID?.touched && appointmentForm.controls.patientID.errors?.required">Patient ID is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field disabled appearance="legacy">
+                                            <mat-label>Select Patient</mat-label>
+                                            <mat-select name="patient" [(ngModel)]="patient" required>
+                                                <mat-option *ngFor="let patient of patients" [value]="patient.personalDetails">{{ patient.personalDetails.firstName + ' ' + patient.personalDetails.lastName }}</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="appointmentForm.controls.patient?.touched && appointmentForm.controls.patient.errors?.required">Patient name is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div fxFlexLayout="row" fxLayoutAlign="end center" fxLayoutGap="0.5em">
+                                <button *ngIf="appointmentForm.status == 'INVALID'" (click)="validateForm()" matTooltip="Create Appointment" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em" class="btn greyBackground">
+                                    <span class="whiteColor ">Create</span> <mat-icon class="whiteColor ">edit</mat-icon>
+                        </button>
+
+                                <button *ngIf="appointmentForm.status == 'VALID'" [mat-dialog-close]="appointmentForm.value" matTooltip="Update Appointment" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em" class="btn greenBackground">
+                                        <span class="whiteColor ">Save</span> <mat-icon class="whiteColor ">save</mat-icon>
+                            </button>
+
+
+                                <button [mat-dialog-close]="{msg: 'closed'}" matTooltip="Cancel Appointment " fxLayout="row " fxLayoutAlign="start center " fxLayoutGap="0.5em " class="btn redBackground ">
+                                        <span class="whiteColor ">Cancel</span> <mat-icon class="whiteColor " >cancel</mat-icon>
+                            </button>
+                            </div>
+                        </ng-template>
+                        <ng-template [ngIf]="editAppointment" #editDialogContent let-data>
+                            <div fxLayout="row" fxLayoutAlign="space-between center">
+                                <h2 class="modal-title noMargin">Edit Appointment</h2>
+                                <div [mat-dialog-close]="{msg: 'closed'}" fxLayout="row" fxLayoutAlign="space-between center">
+                                    <h3 class="redColor noMargin bold">Close</h3>
+                                    <mat-icon class="redColor bold">highlight_off</mat-icon>
+                                </div>
+                            </div>
+                            <div fxLayout="column" fxLayoutAlign="start stretch">
+                                <form #dataForm="ngForm">
+                                    <div fxLayout="row" fxLayoutAlign="space-between center">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Appointment Title</mat-label>
+                                            <input required matInput #data.title placeholder="Enter Appointment Title" name="title" type="text" [(ngModel)]="data.title" />
+                                            <mat-error *ngIf="dataForm.controls.title?.touched && dataForm.controls.title.errors?.required">Appointment title is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                        <div fxLayout="row" style="width: 180px;" fxLayoutAlign="space-between center" fxLayoutGap="0.1em">
+
+                                            <span #disabled style="color: rgb(121, 116, 116) !important">Colour Code:</span> <input disabled required #appointment.primaryColor name="primaryColor" type="color" [(ngModel)]="appointment.primaryColor" (change)="refresh.next()"
+                                            />
+                                        </div>
+                                    </div>
+
+
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Start Date & Time</mat-label>
+                                            <input required matInput #data.start name="start" [(minDate)]="minDateEdit" class="pointer flat-pickr-input" type="text" (ngModelChange)="refresh.next()" mwlFlatpickr [(ngModel)]="data.start" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
+                                                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="Start Date & Time" />
+                                        </mat-form-field>
+
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>End Date & Time</mat-label>
+                                            <input required matInput class="pointer flat-pickr-input" [(minDate)]="minDateEdit" matInput #data.end name="end" type="text" mwlFlatpickr [(ngModel)]="data.end" (ngModelChange)="refresh.next()" [altInput]="true" [convertModelValue]="true" [enableTime]="true"
+                                                dateFormat="Y-m-dTH:i" altFormat="F j, Y H:i" placeholder="End Date & Time" />
+                                        </mat-form-field>
+                                    </div>
+
+
+                                    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayoutGap="1em">
+                                        <mat-form-field appearance="legacy">
+                                            <mat-label>Fetch Patient with ID</mat-label>
+                                            <input disabled [value]="patients[0]?.personalDetails.idNumber" #patientID matInput name="patientID" (ngModelChange)="getPatientFromAPI($event)" />
+                                            <mat-error *ngIf="dataForm.controls?.patientID?.touched && dataForm.controls.patientID.errors?.required">Patient ID is required!
+                                            </mat-error>
+                                        </mat-form-field>
+
+                                        <mat-form-field disabled appearance="legacy">
+                                            <mat-label>Select Patient</mat-label>
+                                            <mat-select name="patient" [(ngModel)]="patient" required>
+                                                <mat-option *ngFor="let patient of patients" [value]="patient.personalDetails">{{ patient.personalDetails.firstName + ' ' + patient.personalDetails.lastName }}</mat-option>
+                                            </mat-select>
+                                            <mat-error *ngIf="dataForm.controls.patient?.touched && dataForm.controls.patient.errors?.required">Patient name is required!
+                                            </mat-error>
+                                        </mat-form-field>
+                                    </div>
+                                </form>
+
+                            </div>
+                            <div fxFlexLayout="row" fxLayoutAlign="end center" fxLayoutGap="0.5em">
+                                <button *ngIf="dataForm.status == 'INVALID'" (click)="validateForm()" matTooltip="Create Appointment" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em" class="btn greyBackground">
+                                    <span class="whiteColor ">Create</span> <mat-icon class="whiteColor ">edit</mat-icon>
+                        </button>
+                                <button *ngIf="dataForm.status == 'VALID' && data.start !== minDate" [mat-dialog-close]="dataForm.value" matTooltip="Save Appointment" fxLayout="row" fxLayoutAlign="start center" fxLayoutGap="0.5em" class="btn greenBackground">
+                                        <span class="whiteColor ">Update</span> <mat-icon class="whiteColor ">save</mat-icon>
+                            </button>
+
+
+                                <button [mat-dialog-close]="{_id: data._id, msg: 'undefined'}" matTooltip="Delete Appointment " fxLayout="row " fxLayoutAlign="start center " fxLayoutGap="0.5em " class="btn redBackground ">
+                                        <span class="whiteColor ">Delete</span> <mat-icon class="whiteColor " >delete</mat-icon>
+                            </button>
+                            </div>
+
+                        </ng-template>
+                    </mat-card-content>
+                </mat-card>
+
+            </div>
+        </div>
+    </div>
+</div>

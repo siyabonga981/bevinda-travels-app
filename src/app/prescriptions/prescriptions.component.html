@@ -1,0 +1,44 @@
+<div class="spinner" *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center" fxFill>
+    <mat-progress-spinner [mode]="mode">
+    </mat-progress-spinner>
+</div>
+<div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
+    <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
+        <div fxLayout="column" fxLayoutAlign="start stretch">
+            <h1 class="bold">Rewards</h1>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-card>
+                    <mat-card-content class="cardHeight">
+                        <div class="padding10px" fxLayout="row" fxLayoutAlign="space-between center">
+                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end">
+                                <button routerLink="newReward" mat-raised-button class="primaryBlueBtn whiteColor"> <mat-icon class="font20px">emoji_events</mat-icon> New Reward</button>
+                            </div>
+                        </div>
+                        <div *ngIf="!rewards?.length" fxLayout="row" fxLayoutAlign="center stretch">
+                            <h1 class="bold">No results found</h1>
+                        </div>
+                        <div class="padding20px" *ngIf="rewards?.length > 0" fxLayout="row wrap" fxLayoutAlign="center center" >
+                          <mat-card class="padding20px rewards-card m-2" *ngFor="let reward of rewards; let  i = index;" fxFlex="30">
+                            <mat-card-content>
+                              <div fxLayout="column" fxLayoutAlign="center start">
+                                <h2><span class="bold"> Rewarded to</span>: {{ reward.referrer }}</h2>
+                                <h3><span class="bold"> Referred</span>: {{ reward.friend }}</h3>
+                                <h3><span class="bold"> Referred on</span>: {{ reward.dateOfReferral | date }}</h3>
+                                <h3><span class="bold"> Booked for</span>: {{ reward.dateOfBooking | date }}</h3>
+                                <h3><span class="bold"> Redeemed Status</span>: {{ reward.redeemedStatus === true ? 'Redeemed' : 'Not Redeemed' }}</h3>
+                              </div>
+                        <div fxLayout="row" fxLayoutAlign="center stretch" fxLayoutGap="1rem" class="mt-2">
+                          <button (click)="editPrescription(reward)" mat-raised-button class="primaryBlueBtn whiteColor"> <mat-icon class="font20px">edit</mat-icon> Edit </button>
+                          <button (click)="deleteRewardFromDB(reward)" mat-raised-button class="redBackground whiteColor"> <mat-icon class="font20px">delete</mat-icon> Delete</button>
+                        </div>
+                            </mat-card-content>
+                          </mat-card>
+                      </div>
+                    </mat-card-content>
+                </mat-card>
+            </div>
+        </div>
+    </div>
+</div>

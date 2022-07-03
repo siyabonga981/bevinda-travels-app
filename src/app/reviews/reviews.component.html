@@ -1,0 +1,33 @@
+<app-toolbar></app-toolbar>
+<div class="web-height" style="position: relative; z-index: 2 !important;" fxLayout="row" fxLayoutAlign="start stretch">
+  <div fxFlex="100"  fxLayout="column" fxLayoutAlign="center center">
+      <div fxLayout="column" fxLayoutAlign="center center">
+        <div class="container">
+          <div class="testimonial-box">
+            <div class="testimonial">
+              <i class="fas fa-quote-right"></i>
+              <span class="testimonial-text bold">&#8220;{{ activeReview.text }}&#8221;</span>
+              <div class="user-info" fxLayout="column" fxLayoutAlign="center center">
+                <span class="user-name bold">{{ activeReview.name }}</span>
+                <div class="user-job-details">
+                  <span class="user-job">Past Client</span>
+                </div>
+                <div class="page">
+                  <button mat-button (click)="showReview(0)">1</button>
+                  <button mat-button (click)="showReview(1)">2</button>
+                  <button mat-button (click)="showReview(2)">3</button> <br>
+                  <button mat-button (click)="showReview(3)">4</button>
+                  <button mat-button (click)="showReview(4)">5</button>
+                </div>
+              </div>
+              <div class="testimonial-user">
+                <!-- <img src="../../assets/img/star.jpg" alt="user-img" class="user-img"> -->
+
+
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+  </div>
+</div>

@@ -1,0 +1,37 @@
+<div fxLayout="row" fxLayoutAlign="start stretch">
+    <div fxFlex="100" fxFill fxLayout="column" fxLayoutAlign="start stretch">
+        <div class="height65px padding20px toolbar" fxLayout="row" fxLayoutAlign="space-between center">
+            <div fxLayout="row" fxLayoutAlign="start center" class="pointer" fxLayoutGap="15px">
+                <span class="bold whiteColor font20px"> <img src="../../assets/img/Plain Logo.png" width="20%" alt="">
+                </span>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="center flex-end">
+                <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+                    <mat-icon matBadge="15" matBadgeColor="accent" class="primaryBlue pointer">notifications</mat-icon>
+                    <mat-icon (click)="logout()" class="primaryBlue pointer">power_settings_new</mat-icon>
+                </div>
+            </div>
+        </div>
+        <mat-drawer-container class="sidenavContainer">
+            <mat-drawer fxHide.xs="true" class="sidenav primary-background" #sidenav opened mode="side" disableClose>
+                <div class="avatar-wrapper relative marginTop1em" fxLayout="column" fxLayoutAlign="center center">
+                    <div class="avatar" fxLayoutAlign="center center">
+                      <img src="../../assets/img/avatar.png" alt="">
+                    </div>
+                </div>
+                <div fxLayout="column" fxLayoutAlign="center center">
+                    <label class="bold whiteColor "> {{ agent['firstName'] + ' ' + agent['lastName']}} </label>
+                    <label class="dim-gray-color font17px ">{{ agent['role']['specialty']}}</label>
+                </div>
+                <div *ngFor="let item of sidenavItems; let i= index " fxLayout="column " fxLayoutAlign="center stretch ">
+                    <div [ngClass]="(i==0 ) ? 'marginTop1em' : ''" class="sidenavItem whiteColor pointer " routerLink="{{ item.route }}" routerLinkActive="active" fxLayout="row " fxLayoutAlign="start center " fxLayoutGap="10px ">
+                        <mat-icon>{{item.icon}}</mat-icon> <span>{{ item.name }}</span>
+                    </div>
+                </div>
+            </mat-drawer>
+            <mat-drawer-content class="padding20px ">
+                <router-outlet></router-outlet>
+            </mat-drawer-content>
+        </mat-drawer-container>
+    </div>
+</div>
