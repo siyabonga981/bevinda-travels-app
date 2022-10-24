@@ -4,7 +4,8 @@ import { DomSanitizer, SafeUrl } from '@angular/platform-browser';
 import { Router } from '@angular/router';
 import { ApiService } from '../services/api.service';
 import { CommonService } from '../services/common.service';
-
+import { MatDialog } from '@angular/material/dialog';
+import { OzowInvoiceComponent } from '../ozow-invoice/ozow-invoice.component';
 @Component({
   selector: 'app-container',
   templateUrl: './container.component.html',
@@ -68,11 +69,14 @@ export class ContainerComponent implements OnInit {
     public sanitizer: DomSanitizer,
     private router: Router,
     private api: ApiService,
-    private snackbar: MatSnackBar
+    private snackbar: MatSnackBar,
+    private dialog: MatDialog
   ) {
     this.agent = this.common.getAgent();
   }
-  ngOnInit(): void {}
+  ngOnInit(): void {
+    this.openOzowDialog();
+  }
   sanitizeImg(img): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(img);
   }
@@ -117,6 +121,14 @@ export class ContainerComponent implements OnInit {
       );
   }
 
+  openOzowDialog(){
+    this.dialog.open(OzowInvoiceComponent, {width: '30vw'}).afterClosed().subscribe(res => {
+      if(res){
+        console.log(res);
+      }
+    })
+
+  }
   logout() {
     localStorage.clear();
     this.router.navigate(['login']);

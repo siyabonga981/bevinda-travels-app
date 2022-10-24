@@ -15,6 +15,7 @@ import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.co
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
 import { NotFoundComponent } from './not-found/not-found.component';
+import { OzowInvoiceComponent } from './ozow-invoice/ozow-invoice.component';
 import { PatientsComponent } from './patients/patients.component';
 import { PrescriptionsComponent } from './prescriptions/prescriptions.component';
 import { ProfileComponent } from './profile/profile.component';
@@ -93,6 +94,7 @@ const routes: Routes = [
           { path: 'createInvoice', component: CreateEditInvoiceComponent },
           { path: 'viewInvoice', component: CreateEditInvoiceComponent },
           { path: 'editInvoice', component: CreateEditInvoiceComponent },
+          { path: 'ozow', component: OzowInvoiceComponent },
         ],
       },
       { path: '**', redirectTo: '**' },

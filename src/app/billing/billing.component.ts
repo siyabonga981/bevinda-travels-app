@@ -9,6 +9,7 @@ import { ApiService } from '../services/api.service';
 import { CommonService } from '../services/common.service';
 import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 
+
 export interface Invoice {
   name: String,
   contactNo: String,
@@ -118,4 +119,5 @@ export class BillingComponent implements OnInit {
       this.router.navigate(['BevindaTravels/invoices/editInvoice']);
     }
   }
+
 }

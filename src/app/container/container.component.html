@@ -28,6 +28,11 @@
                         <mat-icon>{{item.icon}}</mat-icon> <span>{{ item.name }}</span>
                     </div>
                 </div>
+                <div fxLayout="column " fxLayoutAlign="center stretch ">
+                  <div class="sidenavItem whiteColor pointer " (click)="openOzowDialog()" fxLayout="row " fxLayoutAlign="start center " fxLayoutGap="10px ">
+                      <mat-icon>credit_score</mat-icon> <span>Create Ozow Invoice</span>
+                  </div>
+              </div>
             </mat-drawer>
             <mat-drawer-content class="padding20px ">
                 <router-outlet></router-outlet>
