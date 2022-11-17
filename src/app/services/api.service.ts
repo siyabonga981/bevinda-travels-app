@@ -163,6 +163,11 @@ export class ApiService {
     return this.http.post<any>(url, body);
   }
 
+  memberShipSignUp(endpoint, body): Observable<any>{
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
+  }
+
   getReservations(endpoint, body): Observable<any>{
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);

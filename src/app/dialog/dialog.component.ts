@@ -29,13 +29,9 @@ export class DialogComponent implements OnInit {
       lastName: [''],
       phone: [''],
       email: [''],
-      message: [''],
+      cardType: [this.data.title],
     });
     return this.bookingForm;
-  }
-
-  sendEmail(form : any){
-    console.log(form.value)
   }
 
 }

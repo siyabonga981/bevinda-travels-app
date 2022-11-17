@@ -60,10 +60,10 @@ export class MembershipCardsComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       console.log(`Dialog result :`, result);
       this.spinner = true;
-      this.api.sendContactEmail('bookings/sendEmail', result).subscribe(
+      this.api.memberShipSignUp('members/memberShipCard', result).subscribe(
         (res) => {
           this.spinner = false;
-          this.snackbar.open("User Joined Successfully", 'Dismiss', {
+          this.snackbar.open("Request sent Successfully", 'Dismiss', {
             duration: 4000,
             panelClass: ['greenBackground', 'whiteColor'],
           });
