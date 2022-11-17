@@ -1,12 +1,12 @@
-<!-- <app-toolbar></app-toolbar> -->
+<app-toolbar></app-toolbar>
 <div class="web-height" style="position: relative; z-index: 2 !important;" fxLayout="row" fxLayoutAlign="start stretch">
-<div fxLayout="row" fxLayoutAlign="space-between center">
-  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" fxFlex="22" *ngFor="let card of cardItems">
-    <mat-card class="example-card padding20px fullWidth">
+<div class="padding20px" fxLayout="row wrap" fxLayout.xs="column" fxLayoutGap.xs="1.5em" fxLayoutAlign="space-between center">
+  <div class="member-card-border-hover" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" fxFlex="22" fxFlex.xs="100" *ngFor="let card of cardItems; let i = index">
+    <mat-card class="example-card padding20px fullWidth pointer">
+      <mat-card-title align="center">{{card.title}}</mat-card-title>
+      <!-- <h3 style="text-align: center;"></h3> -->
 
-      <h3 style="text-align: center;">{{card.title}}</h3>
-
-      <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px">
+      <mat-card-content fxLayout="column" fxLayoutGap="12px" align="center" class="margin-bottom40">
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" class="margin-bottom40">
           <p class="greyColor">From</p>
           <h3 class="member-card-amount">{{card.price}}</h3>
@@ -17,11 +17,12 @@
         </div>
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx">
           <span>{{card.textTwo}}</span>
+          <br *ngIf="i < 2">
         </div>
       </mat-card-content>
       <mat-card-actions>
         <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" fxFlex="100" >
-         <button mat-raised-button class="btn-card primaryBlueBtn">Sign Up</button>
+         <button mat-raised-button class="btn-card primaryBlueBtn" matTooltip="{{card.matTip}}" (click)="openDialog(card.title,card.img)">Sign Up</button>
         </div>
       </mat-card-actions>
     </mat-card>
