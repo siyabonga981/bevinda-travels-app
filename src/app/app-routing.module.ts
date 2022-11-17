@@ -14,6 +14,7 @@ import { CreateEditInvoiceComponent } from './create-edit-invoice/create-edit-in
 import { DoctorDashboardComponent } from './doctor-dashboard/doctor-dashboard.component';
 import { LandingComponent } from './landing/landing.component';
 import { LoginComponent } from './login/login.component';
+import { MembershipCardsComponent } from './membership-cards/membership-cards.component';
 import { NotFoundComponent } from './not-found/not-found.component';
 import { OzowInvoiceComponent } from './ozow-invoice/ozow-invoice.component';
 import { PatientsComponent } from './patients/patients.component';
@@ -33,6 +34,7 @@ const routes: Routes = [
   { path: 'reviews', component: ReviewsComponent },
   { path: 'contact', component: ContactComponent },
   { path: 'rewards', component: RewardsComponent },
+  { path: 'membership-cards', component: MembershipCardsComponent},
 
   {
     path: 'BevindaTravels',

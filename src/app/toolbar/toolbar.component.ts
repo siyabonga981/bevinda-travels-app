@@ -9,26 +9,31 @@ import { Router } from '@angular/router';
 export class ToolbarComponent implements OnInit {
   navItems: any[] = [
     {
-    name: 'HOME',
-    route: ''
-  },
-  {
-    name: 'BOOK A HOTEL',
-    route: '../book'
-  },{
-    name: 'REVIEWS',
-    route: '../reviews'
-  },{
-    name: 'ABOUT US',
-    route: '../about'
-  },{
-    name: 'REWARDS',
-    route: '../rewards'
-  },{
-    name: 'CONTACT US',
-    route: '../contact'
-  },
-];
+      name: 'HOME',
+      route: ''
+    },
+    {
+      name: 'BOOK A HOTEL',
+      route: '../book'
+    }, {
+      name: 'REVIEWS',
+      route: '../reviews'
+    }, {
+      name: 'ABOUT US',
+      route: '../about'
+    }, {
+      name: 'REWARDS',
+      route: '../rewards'
+    },
+    {
+      name: 'MEMBERSHIP CARDS',
+      route: '../membership-cards'
+    },
+    {
+      name: 'CONTACT US',
+      route: '../contact'
+    },
+  ];
   constructor(public router: Router) { }
 
   ngOnInit(): void {

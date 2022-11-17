@@ -1,0 +1,30 @@
+<!-- <app-toolbar></app-toolbar> -->
+<div class="web-height" style="position: relative; z-index: 2 !important;" fxLayout="row" fxLayoutAlign="start stretch">
+<div fxLayout="row" fxLayoutAlign="space-between center">
+  <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" fxFlex="22" *ngFor="let card of cardItems">
+    <mat-card class="example-card padding20px fullWidth">
+
+      <h3 style="text-align: center;">{{card.title}}</h3>
+
+      <mat-card-content fxLayout="column" fxLayoutAlign="center center" fxLayoutGap="12px">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" class="margin-bottom40">
+          <p class="greyColor">From</p>
+          <h3 class="member-card-amount">{{card.price}}</h3>
+          <p class="greyColor">per annum</p>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx">
+          <span>{{card.textOne}}</span>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx">
+          <span>{{card.textTwo}}</span>
+        </div>
+      </mat-card-content>
+      <mat-card-actions>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="gappx" fxFlex="100" >
+         <button mat-raised-button class="btn-card primaryBlueBtn">Sign Up</button>
+        </div>
+      </mat-card-actions>
+    </mat-card>
+  </div>
+</div>
+</div>

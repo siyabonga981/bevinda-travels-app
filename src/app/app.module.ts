@@ -36,6 +36,7 @@ import { AddEditReservationComponent } from './add-edit-reservation/add-edit-res
 import { AddEditReservationNewComponent } from './add-edit-reservation-new/add-edit-reservation-new.component';
 import { ReservationNewComponent } from './reservation-new/reservation-new.component';
 import { OzowInvoiceComponent } from './ozow-invoice/ozow-invoice.component';
+import { MembershipCardsComponent } from './membership-cards/membership-cards.component';
 
 @NgModule({
   declarations: [
@@ -65,6 +66,7 @@ import { OzowInvoiceComponent } from './ozow-invoice/ozow-invoice.component';
     AddEditReservationNewComponent,
     ReservationNewComponent,
     OzowInvoiceComponent,
+    MembershipCardsComponent,
   ],
   imports: [
     BrowserModule,
