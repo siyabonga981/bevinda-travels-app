@@ -24,7 +24,7 @@ export class OzowInvoiceComponent implements OnInit {
       firstName: ['', Validators.required],
       lastName: ['', Validators.required],
       email: ['', Validators.required],
-      message: ['', Validators.required],
+      reference: ['', Validators.required],
       amount: ['', Validators.required],
     });
     return this.ozowForm;

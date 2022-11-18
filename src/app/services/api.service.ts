@@ -9,178 +9,183 @@ export class ApiService {
   // serverUrl = 'http://localhost:3000';
   serverUrl = 'https://bevinda-travels.herokuapp.com'
   constructor(private http: HttpClient) { }
-  getAgent(endpoint, body): Observable<any>{
+  getAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  getAllAgents(endpoint): Observable<any>{
+  getAllAgents(endpoint): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.get<any>(url);
   }
-  addAgent(endpoint, body): Observable<any>{
+  addAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updateAgent(endpoint, body): Observable<any>{
+  updateAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  updateProfilePic(endpoint, body): Observable<any>{
+  updateProfilePic(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deleteAgent(endpoint, body): Observable<any>{
+  deleteAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  loginAgent(endpoint, body): Observable<any>{
+  loginAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
 
-  getClient(endpoint, body): Observable<any>{
+  getClient(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  getClients(endpoint, body): Observable<any>{
+  getClients(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  addClient(endpoint, body): Observable<any>{
+  addClient(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updateClient(endpoint, body): Observable<any>{
+  updateClient(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deleteClient(endpoint, body): Observable<any>{
+  deleteClient(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.delete<any>(url, body);
   }
-  filterClients(endpoint, body): Observable<any>{
+  filterClients(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
 
-  getPrescriptions(endpoint, body): Observable<any>{
+  getPrescriptions(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  addPrescription(endpoint, body): Observable<any>{
+  addPrescription(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updatePrescription(endpoint, body): Observable<any>{
+  updatePrescription(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deletePrescription(endpoint, body): Observable<any>{
+  deletePrescription(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.delete<any>(url, body);
   }
-  getAppointments(endpoint, body): Observable<any>{
+  getAppointments(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  addAppointment(endpoint, body): Observable<any>{
+  addAppointment(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updateAppointment(endpoint, body): Observable<any>{
+  updateAppointment(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deleteAppointment(endpoint, body): Observable<any>{
-    const url = `${this.serverUrl}/${endpoint}`;
-    return this.http.delete<any>(url, body);
-  }
-
-  getInvoices(endpoint, body): Observable<any>{
-    const url = `${this.serverUrl}/${endpoint}`;
-    return this.http.post<any>(url, body);
-  }
-  getInvoice(endpoint, body): Observable<any>{
-    const url = `${this.serverUrl}/${endpoint}`;
-    return this.http.post<any>(url, body);
-  }
-  sendInvoice(endpoint, body): Observable<any>{
-    const url = `${this.serverUrl}/${endpoint}`;
-    return this.http.post<any>(url, body);
-  }
-  updateInvoice(endpoint, body): Observable<any>{
-    const url = `${this.serverUrl}/${endpoint}`;
-    return this.http.put<any>(url, body);
-  }
-  deleteInvoice(endpoint, body): Observable<any>{
+  deleteAppointment(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.delete<any>(url, body);
   }
 
-  getRewards(endpoint, body): Observable<any>{
+  getInvoices(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  getReward(endpoint, body): Observable<any>{
+  getInvoice(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  addReward(endpoint, body): Observable<any>{
+  sendInvoice(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updateReward(endpoint, body): Observable<any>{
+  updateInvoice(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deleteReward(endpoint, body): Observable<any>{
+  deleteInvoice(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.delete<any>(url, body);
   }
 
-  getBookings(endpoint, body): Observable<any>{
+  getRewards(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  getBooking(endpoint, body): Observable<any>{
+  getReward(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  addBooking(endpoint, body): Observable<any>{
+  addReward(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updateBooking(endpoint, body): Observable<any>{
+  updateReward(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deleteBooking(endpoint, body): Observable<any>{
+  deleteReward(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.delete<any>(url, body);
   }
-  sendContactEmail(endpoint, body): Observable<any>{
+
+  getBookings(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
+  }
+  getBooking(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
+  }
+  addBooking(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
+  }
+  updateBooking(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.put<any>(url, body);
+  }
+  deleteBooking(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.delete<any>(url, body);
+  }
+  sendContactEmail(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
 
-  getReservations(endpoint, body): Observable<any>{
+  getReservations(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  getReservation(endpoint, body): Observable<any>{
+  getReservation(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  addReservation(endpoint, body): Observable<any>{
+  addReservation(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }
-  updateReservation(endpoint, body): Observable<any>{
+  updateReservation(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.put<any>(url, body);
   }
-  deleteReservation(endpoint, body): Observable<any>{
+  deleteReservation(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.delete<any>(url, body);
+  }
+
+  createOzowLink(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
   }
 }

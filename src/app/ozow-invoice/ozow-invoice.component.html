@@ -118,13 +118,13 @@
         fxFlex.xs="100"
       >
       <mat-form-field class="fullWidth" class="fullWidth" appearance="legacy">
-        <mat-label>Message</mat-label>
-        <textarea formControlName="message" matInput placeholder="Message" required></textarea>
+        <mat-label>Reference</mat-label>
+        <textarea formControlName="reference" matInput placeholder="Reference" required></textarea>
         <mat-error *ngIf="
-        ozowForm.get('message')?.touched &&
-        ozowForm.get('message').hasError('required')
+        ozowForm.get('reference')?.touched &&
+        ozowForm.get('reference').hasError('required')
       "
-      >Message is required!
+      >Reference is required!
     </mat-error>
       </mat-form-field>
       </div>
