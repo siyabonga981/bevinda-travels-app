@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  // serverUrl = 'http://localhost:3000';
-  serverUrl = 'https://bevinda-travels.herokuapp.com'
+  serverUrl = 'http://localhost:3000';
+  // serverUrl = 'https://bevinda-travels.herokuapp.com'
   constructor(private http: HttpClient) { }
   getAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
@@ -192,5 +192,26 @@ export class ApiService {
   createOzowLink(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
+  }
+
+  getAllUsers(endpoint): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.get<any>(url);
+  }
+  addUser(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
+  }
+  updateUser(endpoint, body): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.put<any>(url, body);
+  }
+  deleteUser(endpoint): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.delete<any>(url);
+  }
+  getUser(endpoint): Observable<any> {
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.get<any>(url);
   }
 }

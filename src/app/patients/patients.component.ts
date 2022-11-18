@@ -11,6 +11,7 @@ import { ProgressSpinnerMode } from '@angular/material/progress-spinner';
 import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmActionComponent } from '../confirm-action/confirm-action.component';
 import { CommonService } from '../services/common.service';
+import { UsergenericDialogComponent } from '../usergeneric-dialog/usergeneric-dialog.component';
 
 export interface Client {
   personalDetails: { type: Object };
@@ -29,8 +30,10 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     'firstName',
     'lastName',
     'address',
-    'clientType',
     'phone',
+    'cardType',
+    'signUpDate',
+    'expiryDate',
     'action',
   ];
   mode: ProgressSpinnerMode = 'indeterminate';
@@ -50,17 +53,17 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     if(!this.common.getAgent()){
       this.router.navigate(['login']);
     }
-    this.getClients();
+    this.getAllUsers();
   }
 
   ngOnInit(): void {
-    this.filterClients(this.filterValue);
+    // this.filterClients(this.filterValue);
   }
   ngAfterViewInit() {}
 
-  getClients() {
+  getAllUsers() {
     this.spinner = true;
-    this.api.getClients('clients/getClients', {}).subscribe((res) => {
+    this.api.getAllUsers('users/getUsers' ).subscribe((res) => {
       this.spinner = false;
       this.clients = res;
       this.dataSource = new MatTableDataSource(this.clients);
@@ -70,7 +73,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
   }
 
   refreshClients() {
-    this.api.getClients('clients/getClients', {}).subscribe((res) => {
+    this.api.getAllUsers('users/getAllUsers').subscribe((res) => {
       console.log(res, 'refreshed');
     });
   }
@@ -78,21 +81,19 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     console.log(obj._id);
 
     this.dialog
-      .open(ConfirmActionComponent, { data: 'Delete this client?' })
+      .open(ConfirmActionComponent, { data: 'Delete this Member?' })
       .afterClosed()
       .subscribe((res) => {
         if (res) {
           this.api
-            .deleteClient('clients/deleteClient/' + obj._id, {
-              _id: obj._id,
-            })
+            .deleteUser('users/deleteUser/' + obj._id)
             .subscribe(
               (res) => {
                 this.snackbar.open(res['msg'], 'Dismiss', {
                   duration: 3000,
                   panelClass: ['greenBackground', 'whiteColor'],
                 });
-                this.getClients();
+                this.getAllUsers();
               },
               (err) => {
                 this.snackbar.open(err['error'], 'Dismiss', {
@@ -110,26 +111,26 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       });
   }
   editClient(clientToUpdate) {
-    clientToUpdate['title'] = 'Edit Client';
-    clientToUpdate['edit'] = true;
+    clientToUpdate['title'] = 'Edit Member';
     this.dialog
-      .open(AddEditPatientComponent, {
+      .open(UsergenericDialogComponent, {
         data: clientToUpdate,
         disableClose: true,
+        width: '450px'
       })
       .afterClosed()
       .subscribe((res) => {
         if (res) {
           res['_id'] = clientToUpdate['_id'];
-          this.updateClientFromAPI(res);
+          this.updateUserFromAPI(res);
         }
       });
   }
-  updateClientFromAPI(updatedClient) {
+  updateUserFromAPI(updatedUser) {
     this.api
-      .updateClient(
-        'clients/updateClient/' + updatedClient['_id'],
-        updatedClient
+      .updateUser(
+        'users/updateUser/' + updatedUser['_id'],
+        updatedUser
       )
       .subscribe(
         (response) => {
@@ -137,7 +138,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
             duration: 3000,
             panelClass: ['greenBackground', 'whiteColor'],
           });
-          this.getClients();
+          this.getAllUsers();
         },
         (err) => {
           this.snackbar.open(err['error'], 'Dismiss', {
@@ -147,7 +148,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
         }
       );
   }
-  addNewClient() {
+  addNewMember() {
     if (this.router.url.includes('home')) {
       this.dialog
         .open(AddEditPatientComponent, {
@@ -162,11 +163,16 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     }
   }
 
+  navigateToMember(data: any){
+    console.log(data._id)
+    this.router.navigate([`BevindaTravels/members/manageMember/${data._id}`]);
+  }
+
   filterClients(ev) {
     this.spinner = true;
     this.filterValue = ev.value ? ev.value : this.filterValue;
     this.api
-      .filterClients('clients/filterClients/', {
+      .filterClients('users/filterClients/', {
         'personalDetails.clientType': this.filterValue,
       })
       .subscribe(

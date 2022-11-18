@@ -1,0 +1,129 @@
+<form [formGroup]="historyForm" *ngIf="data.title.includes('History')">
+    <div fxLayout="column" fxLayoutAlign="center end" class="pointer redColor">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="cancel" mat-dialog-close
+            matTooltip="Close">cancel
+        </mat-icon>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="margin-bottom40">
+        <h3 class="bold">{{data.title}}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Traveled From</mat-label>
+                <input matInput formControlName="traveledFrom" placeholder="Traveled From" required>
+                <mat-error *ngIf="
+                historyForm.get('traveledFrom')?.touched &&
+                historyForm.get('traveledFrom').hasError('required')
+              ">Traveled From is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>To</mat-label>
+                <input matInput formControlName="to" placeholder="To" required>
+                <mat-error *ngIf="
+                historyForm.get('to')?.touched &&
+                historyForm.get('to').hasError('required')
+              ">To is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Departure Date</mat-label>
+                <input readonly formControlName="travelDate" matInput [matDatepicker]="picker1" (click)="picker1.open()"
+                    required>
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+                <mat-error *ngIf="
+                historyForm.get('travelDate')?.touched &&
+                historyForm.get('travelDate').hasError('required')
+              ">Departure Date is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Return Date</mat-label>
+                <input readonly formControlName="returnDate" matInput [matDatepicker]="picker2" (click)="picker2.open()"
+                    required>
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+                <mat-error *ngIf="
+                historyForm.get('returnDate')?.touched &&
+                historyForm.get('returnDate').hasError('required')
+              ">Return Date is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+        <button [disabled]="!historyForm.valid" [mat-dialog-close]="historyForm.value"
+            class="greenBackground whiteColor" mat-raised-button>Submit</button>
+    </div>
+</form>
+
+<form [formGroup]="rewardForm" *ngIf="!data.title.includes('History')">
+    <div fxLayout="column" fxLayoutAlign="center end" class="pointer redColor">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="cancel" mat-dialog-close
+            matTooltip="Close">cancel
+        </mat-icon>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="margin-bottom40">
+        <h3 class="bold">{{data.title}}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Referred</mat-label>
+                <input matInput formControlName="refered" placeholder="Referred" required>
+                <mat-error *ngIf="
+                rewardForm.get('refered')?.touched &&
+                rewardForm.get('refered').hasError('required')
+              ">Referred is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Reward Status</mat-label>
+                <input matInput formControlName="givenReward" placeholder="Reward Status" required>
+                <mat-error *ngIf="
+            rewardForm.get('givenReward')?.touched &&
+            rewardForm.get('givenReward').hasError('required')
+          ">Reward Status is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Referred Date</mat-label>
+                <input readonly formControlName="referedDate" matInput [matDatepicker]="picker3" (click)="picker3.open()"
+                    required>
+                <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
+                <mat-datepicker #picker3></mat-datepicker>
+                <mat-error *ngIf="
+                historyForm.get('referedDate')?.touched &&
+                historyForm.get('referedDate').hasError('required')
+              ">Referred Date is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+        <button [disabled]="!rewardForm.valid" [mat-dialog-close]="rewardForm.value" class="greenBackground whiteColor"
+            mat-raised-button>Submit</button>
+    </div>
+</form>

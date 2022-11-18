@@ -28,9 +28,9 @@ export class ContainerComponent implements OnInit {
     },
     {
       icon: 'groups',
-      name: 'Clients',
+      name: 'Members',
       class: 'whiteColor',
-      route: 'clients',
+      route: 'members',
     },
     {
       icon: 'event',

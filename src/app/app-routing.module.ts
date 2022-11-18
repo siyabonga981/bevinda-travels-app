@@ -82,11 +82,10 @@ const routes: Routes = [
         ],
       },
       {
-        path: 'clients',
+        path: 'members',
         children: [
           { path: '', component: PatientsComponent },
-          { path: 'addClient', component: AddEditPatientComponent },
-          { path: 'editClient', component: AddEditPatientComponent },
+          { path: 'manageMember/:id', component: AddEditPatientComponent },
         ],
       },
       {

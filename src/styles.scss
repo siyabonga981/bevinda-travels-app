@@ -50,6 +50,10 @@ $red: rgb(236, 86, 86);
   color: $primaryBlue;
 }
 
+.member-font{
+  font-size: 18px;
+}
+
 .greyColor {
   color: $primaryGrey;
 }
@@ -118,6 +122,11 @@ $red: rgb(236, 86, 86);
 }
 .greenColor {
   color: $green;
+}
+
+.member-scroll{
+  height: 62vh;
+  overflow-y: auto;
 }
 
 .orangeColor {
@@ -369,6 +378,10 @@ mat-card {
   font-size: 0.8rem !important;
 }
 
+.margin-bottom12px{
+  margin-bottom: 12px !important;
+}
+
 .cardFont,
 .congratsText {
   font-size: 30px !important;
@@ -422,6 +435,11 @@ mat-card {
   min-height: 18px !important;
   height: 18px !important;
   font-size: 12px;
+}
+
+.memberOverLayY{
+  overflow-y: auto;
+  height: 85vh;
 }
 
 .mat-standard-chip.mat-chip-with-trailing-icon {

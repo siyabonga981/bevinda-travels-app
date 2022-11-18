@@ -38,6 +38,8 @@ import { ReservationNewComponent } from './reservation-new/reservation-new.compo
 import { OzowInvoiceComponent } from './ozow-invoice/ozow-invoice.component';
 import { MembershipCardsComponent } from './membership-cards/membership-cards.component';
 import { DialogComponent } from './dialog/dialog.component';
+import { UsergenericDialogComponent } from './usergeneric-dialog/usergeneric-dialog.component';
+import { MembersComponent } from './members/members.component';
 
 @NgModule({
   declarations: [
@@ -69,6 +71,8 @@ import { DialogComponent } from './dialog/dialog.component';
     OzowInvoiceComponent,
     MembershipCardsComponent,
     DialogComponent,
+    UsergenericDialogComponent,
+    MembersComponent,
   ],
   imports: [
     BrowserModule,

@@ -1,12 +1,14 @@
-import { COMMA, ENTER } from '@angular/cdk/keycodes';
+import { COMMA, ENTER, O } from '@angular/cdk/keycodes';
 import { Component, Inject, OnInit, Optional } from '@angular/core';
 import { MatChipInputEvent } from '@angular/material/chips';
 import { FormGroup, FormBuilder, Validators } from '@angular/forms';
 import { ApiService } from '../services/api.service';
 import { CommonService } from '../services/common.service';
 import { MatSnackBar } from '@angular/material/snack-bar';
-import { MAT_DIALOG_DATA } from '@angular/material/dialog';
-import { Router } from '@angular/router';
+import { MAT_DIALOG_DATA, MatDialog } from '@angular/material/dialog';
+import { ActivatedRoute, Router } from '@angular/router';
+import { MembersComponent } from '../members/members.component';
+
 @Component({
   selector: 'app-add-edit-patient',
   templateUrl: './add-edit-patient.component.html',
@@ -27,134 +29,101 @@ export class AddEditPatientComponent implements OnInit {
   personalDetails: FormGroup;
   clientAddress: FormGroup;
   clientForm: FormGroup;
+  user: any = {};
   constructor(
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
     private formBuilder: FormBuilder,
     private api: ApiService,
     private common: CommonService,
     private snackbar: MatSnackBar,
-    public router: Router
+    public router: Router,
+    private activatedRoute: ActivatedRoute,
+    private dialog: MatDialog
   ) {
-    if(!this.common.getAgent()){
-      this.router.navigate(['login']);
-    }
     this.createClientForm();
+    this.patchData(this.user);
+
   }
 
   ngOnInit(): void {
-    this.agent = this.common.getAgent();
-    if (this.data) {
-      this.patchEditForm();
-      console.log(this.data);
-    }
+    this.personalDetails.disable()
+    this.getUser();
+
   }
 
   createClientForm() {
-    this.clientForm = this.formBuilder.group({
-      personalDetails: this.createPersonalDetailsForm()
-    });
-  }
-  createPersonalDetailsForm() {
     this.personalDetails = this.formBuilder.group({
       firstName: [''],
       lastName: [''],
-      clientType: [''],
-      dob: [''],
-      gender: [''],
-      nationality: [''],
-      clientAddress: this.createPatientAddressForm(),
-    });
-    return this.personalDetails;
-  }
-
-  createPatientAddressForm() {
-    this.clientAddress = this.formBuilder.group({
-      street: [''],
-      town: [''],
-      code: [''],
-      city: [''],
-      email: [''],
       phone: [''],
+      email: [''],
+      expiryDate: [null],
+      signUpDate: [null],
+      cardType: [''],
+      address: this.formBuilder.group({
+        street: [''],
+        suburb: [''],
+        town: [''],
+        code: [''],
+      }),
     });
-    return this.clientAddress;
   }
 
-  getClients() {
-    this.api.getClient('clients/getClient', {}).subscribe((res) => {
-      this.clients = res;
-    });
+  patchData(data: any) {
+    this.personalDetails.patchValue(data);
+
   }
 
-  async refreshPatient(clientToRefresh) {
-    console.log(clientToRefresh);
+  deleteTravelHistory(index) {
+    this.user.travelHistory.splice(index, 1);
+    this.updateUserFromAPI(this.user);
+  }
 
-    this.api
-      .getClient('clients/getPatient', {
-        'personalDetails.idNumber': clientToRefresh.personalDetails.idNumber,
-      })
-      .subscribe((res) => {
-        console.log(res, 'From refresh function api');
+  deleteTravelReward(index) {
+    this.user.rewards.splice(index, 1);
+    this.updateUserFromAPI(this.user);
+  }
 
-        if (res.length) {
-          this.currentPatientObj = res[0];
-          console.log(this.currentPatientObj, 'curr obj');
+  genericEdit(data: any, index: number, type: string) {
+    let dialogData = {
+      data: data,
+      index: index,
+      type: type
+    }
+    dialogData['title'] = type == 'history' ? 'Edit Travel History' : 'Edit Rewards';
+    this.dialog
+      .open(MembersComponent, {
+        data: dialogData,
+        disableClose: true,
+        width: '450px'
+      }).afterClosed().subscribe(res => {
+        if (res) {
+          if (type == 'history') {
+            this.user.travelHistory[index] = res;
+          } else {
+            this.user.rewards[index] = res;
+          }
+          this.updateUserFromAPI(this.user);
         }
+
       });
   }
 
-  async getPatientFromAPI(formObj) {
+  updateUserFromAPI(updatedUser) {
     this.api
-      .getClient('clients/getPatient', {
-        'personalDetails.idNumber': formObj.personalDetails.idNumber,
-      })
-      .subscribe(
-        (res) => {
-          if (res.length) {
-            formObj._id = res[0]._id;
-            formObj.healthDetails.agent = this.agent.userDetails.username;
-            this.updatePatientFromAPI(formObj);
-            console.log('res.length');
-            this.foundPatient = true;
-            this.refreshPatient(formObj);
-            this.getClients();
-            return res;
-          } else {
-            formObj.healthDetails.agent = this.agent.userDetails.username;
-            this.snackbar.open("Progress Saved Successfully", 'Dismiss', {
-              duration: 3000,
-              panelClass: ['greenBackground', 'whiteColor'],
-            });
-            this.sendPatientToAPI(formObj);
-            this.refreshPatient(formObj);
-            this.getClients();
-          }
-        },
-        (err) => {
-          this.snackbar.open(err.error, 'Dismiss', {
-            duration: 3000,
-            panelClass: ['redBackground', 'whiteColor'],
-          });
-        }
-      );
-  }
-
-  updatePatientFromAPI(updatedPatient) {
-    this.api
-      .updateAgent(
-        'clients/updatePatient/' + updatedPatient._id,
-        updatedPatient
+      .updateUser(
+        'users/updateUser/' + updatedUser['_id'],
+        updatedUser
       )
       .subscribe(
         (response) => {
-          this.currentPatientObj = response;
-          this.snackbar.open("Patient Updated Successfully", 'Dismiss', {
+          this.snackbar.open(response['msg'], 'Dismiss', {
             duration: 3000,
             panelClass: ['greenBackground', 'whiteColor'],
           });
-          this.getClients();
         },
         (err) => {
-          this.snackbar.open(err.error, 'Dismiss', {
+          this.snackbar.open(err['error'], 'Dismiss', {
             duration: 3000,
             panelClass: ['redBackground', 'whiteColor'],
           });
@@ -162,111 +131,20 @@ export class AddEditPatientComponent implements OnInit {
       );
   }
 
-  saveProgress(newClient) {
-    this.api.addClient('clients/addClient', newClient.value).subscribe(res => {
-    this.formSaved = true;
-      this.snackbar.open("Client Added Successfully", 'Dismiss', {
-        duration: 3000,
-        panelClass: ['greenBackground', 'whiteColor'],
-      });
-      this.getClients();
-      this.router.navigate(['BevindaTravels/clients']);
-    },
-    (err) => {
-      this.snackbar.open(err.error, 'Dismiss', {
-        duration: 3000,
-        panelClass: ['redBackground', 'whiteColor'],
-      });
+  getUser() {
+    this.activatedRoute.params.subscribe(params => {
+      this.api.getUser(`users/getUser/${params.id}`).subscribe(user => {
+        this.user = user.user;
+        this.patchData(this.user);
+      }, err => {
+        {
+          this.snackbar.open(err['error'] || err['err'], 'Dismiss', {
+            duration: 3000,
+            panelClass: ['redBackground', 'whiteColor'],
+          });
+        }
+      })
     })
-  }
 
-  sendPatientToAPI(newClient) {
-    console.log(newClient);
-    return;
-    // this.api.addAgent('clients/addClient', newPatient).subscribe(
-    //   (response) => {
-    //     if (response) {
-    //       this.snackbar.open(response.msg, 'Dismiss', {
-    //         duration: 3000,
-    //         panelClass: ['greenBackground', 'whiteColor'],
-    //       });
-    //       this.currentPatientObj = response;
-    //       console.log('Patient saved');
-    //       this.getClients();
-    //     }
-    //   },
-    //   (err) => {
-    //     this.snackbar.open(err.error, 'Dismiss', {
-    //       duration: 3000,
-    //       panelClass: ['redBackground', 'whiteColor'],
-    //     });
-    //   }
-    // );
-  }
-
-  // saveHealthDetails(){
-
-  // }
-  patchEditForm() {
-    this.clientForm.patchValue({
-      personalDetails: this.data.personalDetails,
-      healthDetails: this.data.healthDetails,
-      nextOfKinDetails: this.data.nextOfKinDetails,
-    });
-  }
-
-  // tslint:disable-next-line: typedef
-  patchclientForm() {
-    this.clientForm.patchValue({
-      personalDetails: this.createPersonalDetailsForm()
-    });
-  }
-
-  // tslint:disable-next-line: typedef
-  checkExisitingApplication(idNum) {
-    console.log(idNum);
-    if (idNum.length === 13) {
-      this.api
-        .getClient('clients/getPatient', {
-          'personalDetails.idNumber': idNum,
-        })
-        .subscribe(
-          (response) => {
-            console.log(response);
-
-            if (response.length) {
-              this.currentPatientObj = response[0];
-              this.clientForm.patchValue({
-                personalDetails: response[0].personalDetails,
-                healthDetails: response[0].healthDetails,
-                nextOfKinDetails: response[0].nextOfKinDetails,
-              });
-              this.snackbar.open(
-                'Patient details fetched successfully',
-                'Dismiss',
-                {
-                  duration: 3500,
-                  panelClass: ['greenBackground', 'whiteColor'],
-                }
-              );
-            } else {
-              this.snackbar.open(
-                'Patient with that ID does not exist',
-                'Dismiss',
-                {
-                  duration: 3500,
-                  panelClass: ['redBackground', 'whiteColor'],
-                }
-              );
-            }
-          },
-          (err) => {
-            this.snackbar.open(err.error, 'Dismiss', {
-              duration: 3000,
-              panelClass: ['redBackground', 'whiteColor'],
-            });
-          }
-        );
-    }
   }
 }

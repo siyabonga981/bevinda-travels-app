@@ -1,0 +1,129 @@
+<!-- <h1 mat-dialog-title>Delete file</h1>
+<div mat-dialog-content>
+  Would you like to delete cat.jpeg?
+</div>
+<div mat-dialog-actions>
+  <button mat-button mat-dialog-close>No</button>
+  <button mat-button mat-dialog-close cdkFocusInitial>Ok</button>
+</div> -->
+<div class="spinner" *ngIf="spinner" fxLayout="row" fxLayoutAlign="center center" fxFill>
+    <mat-progress-spinner [mode]="mode">
+    </mat-progress-spinner>
+</div>
+<form [formGroup]="bookingForm">
+    <div fxLayout="column" fxLayoutAlign="center end" class="pointer redColor">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="cancel" mat-dialog-close
+            matTooltip="Close">cancel
+        </mat-icon>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center" class="margin-bottom40">
+        <h3 class="bold">{{data.title}}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" placeholder="First name" required>
+                <mat-error *ngIf="
+                bookingForm.get('firstName')?.touched &&
+                bookingForm.get('firstName').hasError('required')
+              ">First name is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" placeholder="Last name" required>
+                <mat-error *ngIf="
+                bookingForm.get('lastName')?.touched &&
+                bookingForm.get('lastName').hasError('required')
+              ">Last name is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+    </div>
+
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" placeholder="Phone" required>
+                <mat-error *ngIf="
+                bookingForm.get('phone')?.touched &&
+                bookingForm.get('phone').hasError('required')
+              ">Phone is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" placeholder="Email">
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Signup Date</mat-label>
+                <input readonly formControlName="signUpDate" matInput [matDatepicker]="picker1" (click)="picker1.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker1"></mat-datepicker-toggle>
+                <mat-datepicker #picker1></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Expiry Date</mat-label>
+                <input readonly formControlName="expiryDate" matInput [matDatepicker]="picker2" (click)="picker2.open()">
+                <mat-datepicker-toggle matSuffix [for]="picker2"></mat-datepicker-toggle>
+                <mat-datepicker #picker2></mat-datepicker>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
+            <mat-form-field appearance="legacy">
+                <mat-label>Card Type</mat-label>
+                <mat-select formControlName="cardType" matInput required>
+                    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+                </mat-select>
+            </mat-form-field>
+        </div>
+        <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
+            <b>Address</b>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxLayout.xs="column"
+            fxLayoutAlign.xs="start stretch" formGroupName="address">
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Street</mat-label>
+                    <input matInput formControlName="street" placeholder="Street">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Suburb</mat-label>
+                    <input matInput formControlName="suburb" placeholder="Suburb">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Town</mat-label>
+                    <input matInput formControlName="town" placeholder="Town">
+                </mat-form-field>
+            </div>
+            <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="47" fxFlex.xs="100">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Code</mat-label>
+                    <input matInput formControlName="code" placeholder="Code">
+                </mat-form-field>
+            </div>
+        </div>
+
+
+    </div>
+
+    <small class="bold" *ngIf="showMessage">Message Submitted, An Agent will Contact You Soon!</small>
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+        <button [disabled]="!bookingForm.valid" [mat-dialog-close]="bookingForm.value"
+            class="greenBackground whiteColor" mat-raised-button>Submit</button>
+    </div>
+</form>
