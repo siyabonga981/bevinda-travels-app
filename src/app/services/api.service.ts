@@ -6,8 +6,8 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  // serverUrl = 'http://localhost:3000';
-  serverUrl = 'https://bevinda-travels.herokuapp.com'
+  serverUrl = 'http://localhost:3000';
+  // serverUrl = 'https://bevinda-travels.herokuapp.com'
   constructor(private http: HttpClient) { }
   getAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
@@ -163,7 +163,12 @@ export class ApiService {
     return this.http.post<any>(url, body);
   }
 
-  getReservations(endpoint, body): Observable<any> {
+  memberShipSignUp(endpoint, body): Observable<any>{
+    const url = `${this.serverUrl}/${endpoint}`;
+    return this.http.post<any>(url, body);
+  }
+
+  getReservations(endpoint, body): Observable<any>{
     const url = `${this.serverUrl}/${endpoint}`;
     return this.http.post<any>(url, body);
   }

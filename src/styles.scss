@@ -109,7 +109,13 @@ $red: rgb(236, 86, 86);
 .mat-slide-toggle.mat-checked .mat-slide-toggle-bar {
   background-color: lighten($primaryBlue, 25);
 }
-
+// .hover {
+//   color:rgb(80, 79, 79);
+// }
+.member-card-border-hover:hover{
+  border: 2px solid #03245c;
+  border-radius: 6px;
+}
 .greenColor {
   color: $green;
 }
@@ -124,6 +130,12 @@ $red: rgb(236, 86, 86);
 
 .dim-gray-color {
   color: #d4d4d4;
+}
+
+.dialogImg{
+  width: 52px;
+  border-radius: 3px;
+  margin-top: 7px;
 }
 
 .active {
@@ -871,17 +883,21 @@ iframe {
 .welcome-text {
   font-size: 3rem !important;
 }
-.btn-card{
+
+.btn-card {
   border-radius: 23px !important;
   border: 1px solid white !important;
 }
+
 .bottom-zero {
   bottom: 0;
   z-index: 2;
 }
-.margin-bottom40{
+
+.margin-bottom40 {
   margin-bottom: 40px !important;
 }
+
 .noMarginBottom {
   margin-bottom: 0 !important;
   margin-block-end: 0 !important;
