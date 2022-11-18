@@ -75,7 +75,6 @@ export class ContainerComponent implements OnInit {
     this.agent = this.common.getAgent();
   }
   ngOnInit(): void {
-    this.openOzowDialog();
   }
   sanitizeImg(img): SafeUrl {
     return this.sanitizer.bypassSecurityTrustUrl(img);
@@ -121,9 +120,9 @@ export class ContainerComponent implements OnInit {
       );
   }
 
-  openOzowDialog(){
-    this.dialog.open(OzowInvoiceComponent, {width: '30vw'}).afterClosed().subscribe(res => {
-      if(res){
+  openOzowDialog() {
+    this.dialog.open(OzowInvoiceComponent, { width: '30vw' }).afterClosed().subscribe(res => {
+      if (res) {
         console.log(res);
       }
     })
