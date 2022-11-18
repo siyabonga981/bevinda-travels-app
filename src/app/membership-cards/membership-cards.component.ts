@@ -60,28 +60,31 @@ export class MembershipCardsComponent implements OnInit {
     }).afterClosed().subscribe(result => {
       console.log(`Dialog result :`, result);
       this.spinner = true;
-      this.api.memberShipSignUp('members/memberShipCard', result).subscribe(
-        (res) => {
-          this.spinner = false;
-          this.snackbar.open("Request sent Successfully", 'Dismiss', {
-            duration: 4000,
-            panelClass: ['greenBackground', 'whiteColor'],
-          });
-          setTimeout(() => {
-            window.location.reload();
-          }, 7000);
-        },
-        (err) => {
-          this.spinner = false;
-          this.snackbar.open('Error Sending Message', 'Dismiss', {
-            duration: 2500,
-          });
-        }
-      );
+      if (result) {
+        this.api.memberShipSignUp('members/memberShipCard', result).subscribe(
+          (res) => {
+            this.spinner = false;
+            this.snackbar.open("Request sent Successfully", 'Dismiss', {
+              duration: 4000,
+              panelClass: ['greenBackground', 'whiteColor'],
+            });
+            setTimeout(() => {
+              window.location.reload();
+            }, 7000);
+          },
+          (err) => {
+            this.spinner = false;
+            this.snackbar.open('Error Sending Message', 'Dismiss', {
+              duration: 2500,
+            });
+          }
+        );
+      }else{
+        return false
+      }
+
     });
   }
-
-
 
 }
 
