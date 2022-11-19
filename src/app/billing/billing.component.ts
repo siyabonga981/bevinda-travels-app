@@ -42,7 +42,6 @@ export class BillingComponent implements OnInit {
     'action'
   ];
 
-  // displayedColumns: string[] = ['firstname', 'lastName', 'phone', 'address', 'actions'];
   invoices: Invoice[] = [  ];
 
   @ViewChild(MatPaginator) paginator: MatPaginator;
@@ -55,11 +54,6 @@ export class BillingComponent implements OnInit {
     }
     this.getAllInvoices();
   }
-
-  // ngAfterViewInit() {
-  //   this.dataSource.paginator = this.paginator;
-  //   this.dataSource.sort = this.sort;
-  // }
 
   applyFilter(event: Event) {
     const filterValue = (event.target as HTMLInputElement).value;
@@ -110,7 +104,6 @@ export class BillingComponent implements OnInit {
   }
 
   passInvoiceData(action, invoiceData){
-    console.log(action)
     sessionStorage.setItem('invoiceID', JSON.stringify(invoiceData._id));
     if(action == 'view'){
       this.router.navigate(['BevindaTravels/invoices/viewInvoice']);

@@ -35,7 +35,6 @@ export class OzowInvoiceComponent implements OnInit {
     if (form && form?.valid) {
       this.dialogRef.close(form.value);
       form.value['amount'] = form.value['amount'].toString();
-      console.log(form.value)
       this.api
         .createOzowLink(
           'ozow/createInvoice', form.value

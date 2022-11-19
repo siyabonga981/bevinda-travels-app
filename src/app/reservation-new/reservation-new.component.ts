@@ -161,7 +161,6 @@ updateReservationFromAPI(updatedReservation) {
     this.api.getReservations('reservations/getReservations', {}).subscribe(
       (res) => {
         this.spinner = false;
-        console.log(res);
         this.reservations = res.reservations;
         if (this.reservations.length) {
           if (!this.router.url.includes('addPrescription')) {

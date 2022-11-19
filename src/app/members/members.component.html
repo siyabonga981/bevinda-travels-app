@@ -1,10 +1,11 @@
+<!-- Shows History Form -->
 <form [formGroup]="historyForm" *ngIf="data.title.includes('History')">
     <div fxLayout="column" fxLayoutAlign="center end" class="pointer redColor">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="cancel" mat-dialog-close
             matTooltip="Close">cancel
         </mat-icon>
     </div>
-    <div fxLayout="column" fxLayoutAlign="center center" class="margin-bottom40">
+    <div fxLayout="column" fxLayoutAlign="center center">
         <h3 class="bold">{{data.title}}</h3>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
@@ -65,17 +66,19 @@
     </div>
     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
         <button [disabled]="!historyForm.valid" [mat-dialog-close]="historyForm.value"
-            class="greenBackground whiteColor" mat-raised-button>Submit</button>
+            class="greenBackground whiteColor" mat-raised-button>Submit
+        </button>
     </div>
 </form>
+<!-- Shows Travel Form -->
 
-<form [formGroup]="rewardForm" *ngIf="!data.title.includes('History')">
+<form [formGroup]="rewardForm" *ngIf="data.title.includes('Reward')">
     <div fxLayout="column" fxLayoutAlign="center end" class="pointer redColor">
         <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="cancel" mat-dialog-close
             matTooltip="Close">cancel
         </mat-icon>
     </div>
-    <div fxLayout="column" fxLayoutAlign="center center" class="margin-bottom40">
+    <div fxLayout="column" fxLayoutAlign="center center">
         <h3 class="bold">{{data.title}}</h3>
     </div>
     <div fxLayout="row" fxLayoutAlign="space-between center" fxLayout.xs="column" fxLayoutAlign.xs="start stretch">
@@ -95,11 +98,13 @@
         <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
             <mat-form-field appearance="legacy">
                 <mat-label>Reward Status</mat-label>
-                <input matInput formControlName="givenReward" placeholder="Reward Status" required>
+                <mat-select formControlName="givenReward" matInput required>
+                    <mat-option *ngFor="let option of options1" [value]="option">{{option}}</mat-option>
+                </mat-select>
                 <mat-error *ngIf="
-            rewardForm.get('givenReward')?.touched &&
-            rewardForm.get('givenReward').hasError('required')
-          ">Reward Status is required!
+                rewardForm.get('givenReward')?.touched &&
+                rewardForm.get('givenReward').hasError('required')
+              ">Reward Status is required!
                 </mat-error>
             </mat-form-field>
         </div>
@@ -109,13 +114,13 @@
         <div fxLayout="column" fxLayoutAlign="start stretch" fxFlex="100" fxFlex.xs="100">
             <mat-form-field appearance="legacy">
                 <mat-label>Referred Date</mat-label>
-                <input readonly formControlName="referedDate" matInput [matDatepicker]="picker3" (click)="picker3.open()"
-                    required>
+                <input readonly formControlName="referedDate" matInput [matDatepicker]="picker3"
+                    (click)="picker3.open()" required>
                 <mat-datepicker-toggle matSuffix [for]="picker3"></mat-datepicker-toggle>
                 <mat-datepicker #picker3></mat-datepicker>
                 <mat-error *ngIf="
-                historyForm.get('referedDate')?.touched &&
-                historyForm.get('referedDate').hasError('required')
+                rewardForm.get('referedDate')?.touched &&
+                rewardForm.get('referedDate').hasError('required')
               ">Referred Date is required!
                 </mat-error>
             </mat-form-field>
@@ -124,6 +129,164 @@
 
     <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
         <button [disabled]="!rewardForm.valid" [mat-dialog-close]="rewardForm.value" class="greenBackground whiteColor"
-            mat-raised-button>Submit</button>
+            mat-raised-button>Submit
+        </button>
+    </div>
+</form>
+<!-- Shows Add New Member Form -->
+
+<form [formGroup]="memebersForm" class=" " *ngIf="data.title.includes('member')">
+    <div fxLayout="column" fxLayoutAlign="center end" class="pointer redColor">
+        <mat-icon aria-hidden="false" aria-label="Example home icon" fontIcon="cancel" mat-dialog-close
+            matTooltip="Close">cancel
+        </mat-icon>
+    </div>
+    <div fxLayout="column" fxLayoutAlign="center center">
+        <!-- {{memebersForm.value | json }} -->
+        <h3 class="bold">{{data.title}}</h3>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h1 class="bold">Member Details</h1>
+    </div>
+    <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+        <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>First Name</mat-label>
+                <input matInput formControlName="firstName" required>
+                <mat-error *ngIf="
+                memebersForm.get('firstName')?.touched &&
+                memebersForm.get('firstName').hasError('required')
+              ">First Name is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>Last Name</mat-label>
+                <input matInput formControlName="lastName" required>
+                <mat-error *ngIf="
+                memebersForm.get('lastName')?.touched &&
+                memebersForm.get('lastName').hasError('required')
+              ">Last Name is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>Email</mat-label>
+                <input matInput formControlName="email" type="email" required>
+                <mat-error *ngIf="
+                memebersForm.get('email')?.touched &&
+                memebersForm.get('email').hasError('required')
+              ">Email is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>Phone</mat-label>
+                <input matInput formControlName="phone" required>
+                <mat-error *ngIf="
+                memebersForm.get('phone')?.touched &&
+                memebersForm.get('phone').hasError('required')
+              ">Phone is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>Signup Date</mat-label>
+                <input readonly formControlName="signUpDate" matInput [matDatepicker]="picker4" (click)="picker4.open()"
+                    required>
+                <mat-datepicker-toggle matSuffix [for]="picker4"></mat-datepicker-toggle>
+                <mat-datepicker #picker4></mat-datepicker>
+                <mat-error *ngIf="
+                memebersForm.get('signUpDate')?.touched &&
+                memebersForm.get('signUpDate').hasError('required')
+              ">Signup Date is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>Expiry Date</mat-label>
+                <input readonly formControlName="expiryDate" matInput [matDatepicker]="picker5" (click)="picker5.open()"
+                    required>
+                <mat-datepicker-toggle matSuffix [for]="picker5"></mat-datepicker-toggle>
+                <mat-datepicker #picker5></mat-datepicker>
+                <mat-error *ngIf="
+                memebersForm.get('expiryDate')?.touched &&
+                memebersForm.get('expiryDate').hasError('required')
+              ">Signup Date is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+            <mat-form-field appearance="legacy">
+                <mat-label>Card Type</mat-label>
+                <mat-select formControlName="cardType" matInput required>
+                    <mat-option *ngFor="let option of options" [value]="option">{{option}}</mat-option>
+                </mat-select>
+                <mat-error *ngIf="
+                memebersForm.get('cardType')?.touched &&
+                memebersForm.get('cardType').hasError('required')
+              ">Card Type is required!
+                </mat-error>
+            </mat-form-field>
+        </div>
+        <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100">
+            <p class="bold margin-bottom12px">Members Address</p>
+        </div>
+        <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100" formGroupName="address">
+            <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Street</mat-label>
+                    <input matInput formControlName="street" required>
+                    <mat-error *ngIf="
+                    memebersForm.get('street')?.touched &&
+                    memebersForm.get('street').hasError('required')
+                  ">Street is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Suburb</mat-label>
+                    <input matInput formControlName="suburb" required>
+                    <mat-error *ngIf="
+                    memebersForm.get('suburb')?.touched &&
+                    memebersForm.get('suburb').hasError('required')
+                  ">Suburb is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Town</mat-label>
+                    <input matInput formControlName="town" required>
+                    <mat-error *ngIf="
+                    memebersForm.get('town')?.touched &&
+                    memebersForm.get('town').hasError('required')
+                  ">Town is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+            <div fxFlex="48" fxLayout="column" fxLayoutAlign="start stretch">
+                <mat-form-field appearance="legacy">
+                    <mat-label>Code</mat-label>
+                    <input matInput formControlName="code" required>
+                    <mat-error *ngIf="
+                    memebersForm.get('code')?.touched &&
+                    memebersForm.get('code').hasError('required')
+                  ">Code is required!
+                    </mat-error>
+                </mat-form-field>
+            </div>
+        </div>
+    </div>
+    <div fxLayout="row" fxLayoutAlign="start stretch" fxLayoutGap="10px">
+        <button [disabled]="!memebersForm.valid" [mat-dialog-close]="memebersForm.value"
+            class="greenBackground whiteColor" mat-raised-button>Submit
+        </button>
     </div>
 </form>

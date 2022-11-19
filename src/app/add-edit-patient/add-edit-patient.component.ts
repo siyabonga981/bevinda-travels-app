@@ -147,4 +147,28 @@ export class AddEditPatientComponent implements OnInit {
     })
 
   }
+
+  addGenericMemberDetails(type: any){
+    let dialogData = {
+      type: type
+    }
+    dialogData['title'] = type == 'history' ? 'Add Travel History' : 'Add Rewards';
+    this.dialog
+      .open(MembersComponent, {
+        data: dialogData,
+        disableClose: true,
+        width: '450px'
+      }).afterClosed().subscribe(res => {
+        if (res) {
+          if (type == 'history') {
+            this.user.travelHistory.push(res);
+          } else {
+            this.user.rewards.push(res);
+          }
+          this.updateUserFromAPI(this.user);
+        }
+
+      });
+  }
+
 }

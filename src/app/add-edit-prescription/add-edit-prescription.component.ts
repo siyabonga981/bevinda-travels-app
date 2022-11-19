@@ -33,7 +33,7 @@ export class AddEditPrescriptionComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    // this.getAgent();
+    this.getAgent();
     if (this.data) {
       this.patchRewardsForm();
     }
@@ -109,10 +109,6 @@ export class AddEditPrescriptionComponent implements OnInit {
           },
           (err) => {
             this.spinner = false;
-            // this.snackbar.open(err['error'], 'Dismiss', {
-            //   duration: 3000,
-            //   panelClass: ['redBackground', 'whiteColor'],
-            // });
           }
         );
     }
@@ -121,7 +117,6 @@ export class AddEditPrescriptionComponent implements OnInit {
     if (!this.data?.patch) {
       let idNumber = idNum.value.personalDetails.idNumber;
       if (idNumber && idNumber.length === 13) {
-        console.log(idNumber);
 
         this.api
           .getAgent('patients/getPatient', {
@@ -129,8 +124,6 @@ export class AddEditPrescriptionComponent implements OnInit {
           })
           .subscribe(
             (response) => {
-              console.log(response);
-
               if (response.length) {
                 this.reward.get('illnesses').enable();
                 this.reward.get('symptoms').enable();
@@ -176,15 +169,4 @@ export class AddEditPrescriptionComponent implements OnInit {
     }
   }
 
-  // resetForm() {
-  //   this.reward.patchValue({
-  //     patient: null,
-  //     idNumber: null,
-  //     symptoms: null,
-  //     diagnosis: null,
-  //     notes: null,
-  //     illnesses: null,
-  //     medication: null,
-  //   });
-  // }
 }

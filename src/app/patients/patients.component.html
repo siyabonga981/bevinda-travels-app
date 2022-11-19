@@ -5,7 +5,7 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
     <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em">
         <div fxLayout="column" fxLayoutAlign="start stretch">
-            <h1 class="bold">Clients</h1>
+            <h1 class="bold">Members</h1>
         </div>
         <div fxLayout="row" fxLayoutAlign="space-between center">
             <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
@@ -14,16 +14,12 @@
                         class="cardHeight">
                         <div class="padding10px" fxLayout="row" fxLayoutAlign="space-between center">
                             <mat-form-field appearance="legacy">
-                                <mat-label>Filter By Client Type</mat-label>
-                                <mat-select [(value)]="filterValue" (selectionChange)="filterClients($event)" matInput
-                                    required>
-                                    <mat-option value="Corporate">Corporate</mat-option>
-                                    <mat-option value="Private">Private</mat-option>
-                                </mat-select>
+                                <mat-label>Filter Members</mat-label>
+                                    <input matInput placeholder="Filter Members" required (keyup)="applyFilter($event)" #input>
                             </mat-form-field>
                             <div fxFlex="100" fxLayout="column" fxLayoutAlign="center end">
-                                <button mat-raised-button class="primaryBlueBtn whiteColor">
-                                    <mat-icon class="font20px">person_add</mat-icon> Add Member
+                                <button mat-raised-button class="primaryBlueBtn whiteColor" (click)="addNewMember()">
+                                    <mat-icon class="font20px">person_add</mat-icon> Add New Member
                                 </button>
                             </div>
                         </div>

@@ -212,7 +212,6 @@ export class CreateEditInvoiceComponent {
 
   addProduct() {
     this.invoice.products.push(new Product());
-    console.log(this.invoice.products);
   }
 
   getClientFromAPI(phoneNumber, form) {
@@ -224,7 +223,6 @@ export class CreateEditInvoiceComponent {
         .subscribe(
           (response) => {
             if (response) {
-              console.log(response);
 
               this.client = response.client[0].personalDetails;
 
@@ -286,12 +284,10 @@ ${this.client.clientAddress.code}`;
     for (let i = 0; i < invoices.length; i++) {
       if (invoices[i]?.ref.split('-')[1] > this.latestInvoice) {
         this.latestInvoice.number = invoices[i].ref.split('-')[1];
-        console.log('latest invoice', this.latestInvoice.number);
       } else {
         this.latestInvoice.number = 1;
       }
       this.latestInvoice.number++;
-      console.log(this.latestInvoice.number);
     }
   }
   sendInvoice(form) {
@@ -404,7 +400,6 @@ ${this.client.clientAddress.code}`;
         },
       },
     };
-    console.log(form);
     pdfMake.createPdf(docDefinition).getBase64(
       function (encodedString) {
         let invoicetoSend = {
@@ -421,9 +416,8 @@ ${this.client.clientAddress.code}`;
           dateCleared: 'N/A',
           ref: this.invoice.customerName + ' - ' + this.latestInvoice?.number,
         };
-        console.log(invoicetoSend);
         this.saveInvoice(invoicetoSend);
-      }.bind(this) // To bind the callback with the actual context
+      }.bind(this) 
     );
   }
   removeItem(i) {
@@ -635,7 +629,7 @@ ${this.client.clientAddress.code}`;
         };
 
         this.updateEmailAndSaveInvoice(invoiceToUpdate);
-      }.bind(this) // To bind the callback with the actual context
+      }.bind(this) 
     );
   }
 

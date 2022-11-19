@@ -133,7 +133,6 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
   }
   ngAfterViewInit() {}
   clickedInput() {
-    console.log('Clicked input');
   }
   dayClicked({ date, events }: { date: Date; events: any }): void {
     if (isSameMonth(date, this.viewDate)) {
@@ -171,7 +170,6 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
     this.modalData = { event, action };
     this.minDateEdit.setMinutes(event.start.getMinutes() - 1);
     this.maxDateEdit.setMinutes(event.end.getMinutes() - 1);
-    console.log(this.minDateEdit);
     this.getPatientFromAPI(event.patient.idNumber);
     this.dialog
       .open(this.editDialogContent, { data: event, disableClose: true })
@@ -189,7 +187,6 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
               afterEnd: true,
             }),
             (res.doctor = this.common.getAgent().userDetails.username);
-          console.log(res);
           this.updateSelectedAppointment(res);
         }
       });
@@ -212,7 +209,6 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
       .subscribe((res) => {
         if (res.msg == 'closed') {
           this.showAddDialog = false;
-          console.log(this.showAddDialog);
           return false;
         } else {
           let newAppointment = {
@@ -247,7 +243,6 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
   }
 
   getAppointmentsFromAPI() {
-    // this.spinner = true;
     this.api
       .getAppointments('appointments/getAppointments', {
         doctor: this.common.getAgent().userDetails.username,
@@ -272,10 +267,8 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
           });
           this.events = [...allAppointments];
         } else {
-          // this.snackbar.open()
           this.spinner = false;
 
-          console.log('No result fetching appointments');
         }
       });
   }
@@ -289,7 +282,6 @@ export class AppointmentsComponent implements OnInit, AfterViewInit {
         .subscribe((response) => {
           if (response) {
             this.patients = response.patient;
-            console.log(this.patients);
             this.snackbar.open(response.msg, 'Close', {
               duration: 2500,
               panelClass: ['greenBackground', 'whiteColor'],

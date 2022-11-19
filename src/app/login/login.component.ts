@@ -38,7 +38,6 @@ export class LoginComponent implements OnInit {
     }
     this.api.loginAgent('agents/login', form.value).subscribe(
       (response) => {
-        console.log(response);
         if (response) {
           localStorage.setItem('agent', JSON.stringify(response))
           this.snackbar.open('Logged in', 'Dismiss', {

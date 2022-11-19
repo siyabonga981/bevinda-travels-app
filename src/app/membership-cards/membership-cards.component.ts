@@ -58,7 +58,6 @@ export class MembershipCardsComponent implements OnInit {
         title, img
       }
     }).afterClosed().subscribe(result => {
-      console.log(`Dialog result :`, result);
       this.spinner = true;
       if (result) {
         this.api.memberShipSignUp('members/memberShipCard', result).subscribe(

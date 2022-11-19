@@ -1,5 +1,5 @@
-import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
-import { MatDialog } from '@angular/material/dialog';
+import { AfterViewInit, Component, ViewChild, OnInit, Optional, Inject } from '@angular/core';
+import { MatDialog, MAT_DIALOG_DATA } from '@angular/material/dialog';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource } from '@angular/material/table';
@@ -12,6 +12,8 @@ import { MatSnackBar } from '@angular/material/snack-bar';
 import { ConfirmActionComponent } from '../confirm-action/confirm-action.component';
 import { CommonService } from '../services/common.service';
 import { UsergenericDialogComponent } from '../usergeneric-dialog/usergeneric-dialog.component';
+import { MembersComponent } from '../members/members.component';
+
 
 export interface Client {
   personalDetails: { type: Object };
@@ -24,7 +26,7 @@ export interface Client {
   styleUrls: ['./patients.component.scss'],
 })
 export class PatientsComponent implements OnInit, AfterViewInit {
-  dataSource: MatTableDataSource<Client>;
+  dataSource: MatTableDataSource<any>;
   spinner: boolean = false;
   displayedColumns: string[] = [
     'firstName',
@@ -48,7 +50,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     public router: Router,
     private dialog: MatDialog,
     private snackbar: MatSnackBar,
-    private common: CommonService
+    private common: CommonService,
+    @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
     if(!this.common.getAgent()){
       this.router.navigate(['login']);
@@ -74,11 +77,9 @@ export class PatientsComponent implements OnInit, AfterViewInit {
 
   refreshClients() {
     this.api.getAllUsers('users/getAllUsers').subscribe((res) => {
-      console.log(res, 'refreshed');
     });
   }
   deleteClientFromDB(obj) {
-    console.log(obj._id);
 
     this.dialog
       .open(ConfirmActionComponent, { data: 'Delete this Member?' })
@@ -148,7 +149,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
         }
       );
   }
-  addNewMember() {
+  addMember() {
     if (this.router.url.includes('home')) {
       this.dialog
         .open(AddEditPatientComponent, {
@@ -156,15 +157,13 @@ export class PatientsComponent implements OnInit, AfterViewInit {
         })
         .afterClosed()
         .subscribe((res) => {
-          console.log(res);
         });
     } else {
-      this.router.navigate(['BevindaTravels/clients/addClient']);
+      this.router.navigate(['BevindaTravels/members/manageMember']);
     }
   }
 
   navigateToMember(data: any){
-    console.log(data._id)
     this.router.navigate([`BevindaTravels/members/manageMember/${data._id}`]);
   }
 
@@ -189,4 +188,47 @@ export class PatientsComponent implements OnInit, AfterViewInit {
         }
       );
   }
+
+  addNewMember(){
+    let dialogData = {title: 'Add new member'};
+    this.dialog
+      .open(MembersComponent, {
+        data: dialogData,
+        disableClose: true,
+        width: '450px'
+      }).afterClosed().subscribe(res => {
+        if (res) {
+          this.api
+          .addUser(
+            'users/addUser/' , res
+          )
+          .subscribe(
+            (response) => {
+              this.snackbar.open(response['msg'], 'Dismiss', {
+                duration: 3000,
+                panelClass: ['greenBackground', 'whiteColor'],
+              });
+              this.getAllUsers();
+            },
+            (err) => {
+              this.snackbar.open(err['error'], 'Dismiss', {
+                duration: 3000,
+                panelClass: ['redBackground', 'whiteColor'],
+              });
+            }
+          );
+        }
+
+      });
+
+  }
+
+  applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+    if (this.dataSource.paginator) {
+      this.dataSource.paginator.firstPage();
+    }
+  }
+
 }

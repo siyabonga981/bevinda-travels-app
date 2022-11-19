@@ -26,7 +26,6 @@ export class UsergenericDialogComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    console.log("Data :", this.data);
     this.patchData(this.data);
   }
 

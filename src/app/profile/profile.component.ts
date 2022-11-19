@@ -71,25 +71,10 @@ export class ProfileComponent implements OnInit {
     });
   }
 
-  // getAgentFromAPI(){
-  //   this.api.getAgent('doctors/getAgent', {"userDetails.username": this.doctor.userDetails.username}).subscribe(res => {
-  //   localStorage.setItem('doctor', JSON.stringify(res[0]));
-  //   this.doctor = res[0];
-  //   this.spinner = false;
-  //   window.location.reload();
-  //   },  (err) => {
-  //     this.spinner = false;
-  //     this.snackbar.open(err.error.msg, 'Close', {
-  //       duration: 3000,
-  //       panelClass: ['redBackground', 'whiteColor'],
-  //     });
-  //   });
-  // }
   updateAgent(form){
     this.spinner = true;
     this.dialog.open(ConfirmActionComponent, {data: 'Are you sure you want to update your details?'}).afterClosed().subscribe(res => {
       if(res){
-        console.log(res)
         form._id = this.doctor._id;
         this.saveUpdatedAgent(form);
       }
@@ -101,7 +86,6 @@ export class ProfileComponent implements OnInit {
   }
 
   saveUpdatedAgent(updatedAgent){
-    console.log(updatedAgent)
     this.api.updateAgent('agents/updateAgent/' + updatedAgent._id, updatedAgent).subscribe(res => {
       this.snackbar.open(res.msg, 'Close', {
         duration: 2500,
@@ -128,8 +112,6 @@ export class ProfileComponent implements OnInit {
 
     myReader.onloadend = (e) => {
       this.doctor.profilePic = myReader.result;
-      console.log(myReader.result);
-      // localStorage.setItem('doctor', JSON.stringify(this.doctor));
       this.sanitizeImg(this.doctor.profilePic);
     }
     myReader.readAsDataURL(file);

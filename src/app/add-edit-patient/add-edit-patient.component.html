@@ -111,11 +111,17 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <h1 class="bold">Member Travel History</h1>
+                                <mat-icon (click)="addGenericMemberDetails('history')" matTooltip="Add Travel History">
+                                    <span class="material-icons pointer primaryBlue">
+                                        add_circle_outline
+                                    </span>
+                                </mat-icon>
                             </div>
                             <div *ngIf="user?.travelHistory?.length === 0">
                                 <h4 class="darkGreyColor">No Travel History Found</h4>
                             </div>
-                            <div *ngIf="user?.travelHistory?.length > 0" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div *ngIf="user?.travelHistory?.length > 0" fxLayout="row wrap"
+                                fxLayoutAlign="space-between center">
                                 <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"
                                     *ngFor="let history of user.travelHistory, let i = index">
                                     <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
@@ -144,7 +150,8 @@
                                     </div>
                                     <div fxLayout="column" fxLayoutAlign="start stretch">
                                         <div fxLayout="row">
-                                            <mat-icon (click)="genericEdit(history, i,'history')" class="pointer primaryBlue">edit
+                                            <mat-icon (click)="genericEdit(history, i,'history')"
+                                                class="pointer primaryBlue">edit
                                             </mat-icon>
                                             <mat-icon (click)="deleteTravelHistory(i)" class="pointer redColor">delete
                                             </mat-icon>
@@ -154,11 +161,17 @@
                             </div>
                             <div fxLayout="row" fxLayoutAlign="space-between center">
                                 <h1 class="bold">Rewards</h1>
+                                <mat-icon (click)="addGenericMemberDetails('reward')" matTooltip="Add Rewards">
+                                    <span class="material-icons pointer primaryBlue">
+                                        add_circle_outline
+                                    </span>
+                                </mat-icon>
                             </div>
                             <div *ngIf="user?.rewards?.length === 0">
                                 <h4 class="darkGreyColor">No Rewards Found</h4>
                             </div>
-                            <div *ngIf="user?.rewards?.length > 0" fxLayout="row wrap" fxLayoutAlign="space-between center">
+                            <div *ngIf="user?.rewards?.length > 0" fxLayout="row wrap"
+                                fxLayoutAlign="space-between center">
                                 <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"
                                     *ngFor="let reward of user.rewards, let i = index">
                                     <div fxFlex="29" fxLayout="column" fxLayoutAlign="start stretch">
@@ -169,7 +182,7 @@
                                     </div>
                                     <div fxFlex="29" fxLayout="column" fxLayoutAlign="start stretch">
                                         <mat-form-field appearance="legacy">
-                                            <mat-label>Reward</mat-label>
+                                            <mat-label>Reward Status</mat-label>
                                             <input matInput [value]="reward.givenReward" disabled>
                                         </mat-form-field>
                                     </div>
@@ -181,7 +194,8 @@
                                     </div>
                                     <div fxLayout="column" fxLayoutAlign="start stretch">
                                         <div fxLayout="row">
-                                            <mat-icon (click)="genericEdit(reward, i,'rewards')" class="pointer primaryBlue">edit
+                                            <mat-icon (click)="genericEdit(reward, i,'rewards')"
+                                                class="pointer primaryBlue">edit
                                             </mat-icon>
                                             <mat-icon (click)="deleteTravelReward(i)" class="pointer redColor">delete
                                             </mat-icon>

@@ -55,13 +55,7 @@ export class ContainerComponent implements OnInit {
       name: 'Rewards',
       class: 'whiteColor',
       route: 'rewards',
-    },
-    // {
-    //   icon: 'emoji_events',
-    //   name: 'Appointments',
-    //   class: 'whiteColor',
-    //   route: 'appointments',
-    // },
+    }
   ];
 
   constructor(
@@ -123,7 +117,6 @@ export class ContainerComponent implements OnInit {
   openOzowDialog() {
     this.dialog.open(OzowInvoiceComponent, { width: '30vw' }).afterClosed().subscribe(res => {
       if (res) {
-        console.log(res);
       }
     })
 

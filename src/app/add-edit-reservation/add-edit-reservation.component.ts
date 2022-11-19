@@ -50,7 +50,6 @@ export class AddEditReservationComponent implements OnInit {
     this.agent = this.common.getAgent();
     if (this.data) {
       this.patchEditForm();
-      console.log(this.data);
     }
   }
 
@@ -76,18 +75,15 @@ export class AddEditReservationComponent implements OnInit {
   }
 
   async refreshPatient(clientToRefresh) {
-    console.log(clientToRefresh);
 
     this.api
       .getClient('clients/getPatient', {
         'personalDetails.idNumber': clientToRefresh.personalDetails.idNumber,
       })
       .subscribe((res) => {
-        console.log(res, 'From refresh function api');
 
         if (res.length) {
           this.currentPatientObj = res[0];
-          console.log(this.currentPatientObj, 'curr obj');
         }
       });
   }
@@ -124,7 +120,6 @@ export class AddEditReservationComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line: typedef
   patchReservationForm() {
     this.reservationForm.patchValue({
       firstName: this.data.firstName,
@@ -137,9 +132,7 @@ export class AddEditReservationComponent implements OnInit {
     });
   }
 
-  // tslint:disable-next-line: typedef
   checkExisitingApplication(idNum) {
-    console.log(idNum);
     if (idNum.length === 13) {
       this.api
         .getClient('clients/getPatient', {
@@ -147,7 +140,6 @@ export class AddEditReservationComponent implements OnInit {
         })
         .subscribe(
           (response) => {
-            console.log(response);
 
             if (response.length) {
               this.currentPatientObj = response[0];
