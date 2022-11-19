@@ -1,212 +1,403 @@
 <div fxLayout="row" fxLayoutAlign="start stretch" fxFill>
-    <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch" fxLayoutGap="0.5em" class="memberOverLayY">
-        <div fxLayout="column" fxLayoutAlign="start stretch">
-
-            <div fxLayout="row" fxLayoutAlign="space-between center">
-                <h1 *ngIf="!data?.title" class="bold">Manage Member</h1>
-                <div mat-dialog-close class="pointer" fxLayout="row" fxLayoutAlign="space-between center"
-                    fxLayoutGap="10px">
-                    <h2 *ngIf="data?.title || router.url.includes(['home'])" class="bold redColor noMargin">Cancel </h2>
-                    <mat-icon
-                        *ngIf="(router.url.includes(['home'])) || (router.url.includes(['clients']) && data?.title)"
-                        class="redColor">highlight_off</mat-icon>
-
-                </div>
-            </div>
+  <div
+    fxFlex="100"
+    fxLayout="column"
+    fxLayoutAlign="start stretch"
+    fxLayoutGap="0.5em"
+    class="memberOverLayY"
+  >
+    <div fxLayout="column" fxLayoutAlign="start stretch">
+      <div fxLayout="row" fxLayoutAlign="space-between center">
+        <h1 *ngIf="!data?.title" class="bold">Manage Member</h1>
+        <div
+          mat-dialog-close
+          class="pointer"
+          fxLayout="row"
+          fxLayoutAlign="space-between center"
+          fxLayoutGap="10px"
+        >
+          <h2
+            *ngIf="data?.title || router.url.includes(['home'])"
+            class="bold redColor noMargin"
+          >
+            Cancel
+          </h2>
+          <mat-icon
+            *ngIf="
+              router.url.includes(['home']) ||
+              (router.url.includes(['clients']) && data?.title)
+            "
+            class="redColor"
+            >highlight_off</mat-icon
+          >
         </div>
-        <div fxLayout="row" fxLayoutAlign="space-between center">
-            <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
-                <mat-card>
-                    <mat-card-content class="stepperHeight">
-                        <div *ngIf="!data?.title" class="padding10px" fxLayout="row"
-                            fxLayoutAlign="space-between center">
-                            <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
-                                <button routerLink="../../" mat-raised-button class="primaryBlueBtn whiteColor">
-                                    <mat-icon class="font20px">arrow_back</mat-icon> Back To Members
-                                </button>
-                            </div>
-                            <div *ngIf="false" fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                <mat-form-field appearance="legacy">
-                                    <mat-label>Enter phone number to resume application</mat-label>
-                                    <input #input (keyup)="checkExisitingApplication(input.value)" matInput
-                                        placeholder="Enter ID to resume" required>
-                                </mat-form-field>
-                            </div>
-                        </div>
-                        <form [formGroup]="personalDetails" class="padding20px member-scroll">
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <h1 class="bold">Member Details <span
-                                        class="primaryBlue member-font">({{personalDetails.value.cardType}}
-                                        MEMBER)</span></h1>
-                            </div>
-                            <div fxLayout="row wrap" fxLayoutAlign="space-between center">
-                                <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                    <mat-form-field appearance="legacy">
-                                        <mat-label>First Name</mat-label>
-                                        <input matInput formControlName="firstName" required>
-                                    </mat-form-field>
-                                </div>
-                                <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                    <mat-form-field appearance="legacy">
-                                        <mat-label>Last Name</mat-label>
-                                        <input matInput formControlName="lastName" required>
-                                    </mat-form-field>
-                                </div>
-                                <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                    <mat-form-field appearance="legacy">
-                                        <mat-label>Email</mat-label>
-                                        <input matInput formControlName="email" required>
-                                    </mat-form-field>
-                                </div>
-                                <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                    <mat-form-field appearance="legacy">
-                                        <mat-label>Phone</mat-label>
-                                        <input matInput formControlName="phone" required>
-                                    </mat-form-field>
-                                </div>
-                                <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                    <mat-form-field appearance="legacy">
-                                        <mat-label>Signup Date</mat-label>
-                                        <input matInput value="{{personalDetails.value.signUpDate | date:'mediumDate'}}"
-                                            disabled>
-                                    </mat-form-field>
-                                </div>
-                                <div fxFlex="30" fxLayout="column" fxLayoutAlign="start stretch">
-                                    <mat-form-field appearance="legacy">
-                                        <mat-label>Expiry Date</mat-label>
-                                        <input matInput value="{{personalDetails.value.expiryDate | date:'mediumDate'}}"
-                                            disabled>
-                                    </mat-form-field>
-                                </div>
-                                <div fxLayout="row" fxLayoutAlign="space-between center" fxFlex="100">
-                                    <p class="bold margin-bottom12px">Address</p>
-                                </div>
-                                <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"
-                                    formGroupName="address">
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Street</mat-label>
-                                            <input matInput formControlName="street">
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Suburb</mat-label>
-                                            <input matInput formControlName="suburb">
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Town</mat-label>
-                                            <input matInput formControlName="town">
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Code</mat-label>
-                                            <input matInput formControlName="code">
-                                        </mat-form-field>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <h1 class="bold">Member Travel History</h1>
-                                <mat-icon (click)="addGenericMemberDetails('history')" matTooltip="Add Travel History">
-                                    <span class="material-icons pointer primaryBlue">
-                                        add_circle_outline
-                                    </span>
-                                </mat-icon>
-                            </div>
-                            <div *ngIf="user?.travelHistory?.length === 0">
-                                <h4 class="darkGreyColor">No Travel History Found</h4>
-                            </div>
-                            <div *ngIf="user?.travelHistory?.length > 0" fxLayout="row wrap"
-                                fxLayoutAlign="space-between center">
-                                <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"
-                                    *ngFor="let history of user.travelHistory, let i = index">
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>From</mat-label>
-                                            <input matInput [value]="history.traveledFrom" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>To</mat-label>
-                                            <input matInput [value]="history.to" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Departure Date</mat-label>
-                                            <input matInput value="{{history.travelDate | date:'mediumDate'}}" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="22" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Return Date</mat-label>
-                                            <input matInput value="{{history.returnDate | date:'mediumDate'}}" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxLayout="column" fxLayoutAlign="start stretch">
-                                        <div fxLayout="row">
-                                            <mat-icon (click)="genericEdit(history, i,'history')"
-                                                class="pointer primaryBlue">edit
-                                            </mat-icon>
-                                            <mat-icon (click)="deleteTravelHistory(i)" class="pointer redColor">delete
-                                            </mat-icon>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                            <div fxLayout="row" fxLayoutAlign="space-between center">
-                                <h1 class="bold">Rewards</h1>
-                                <mat-icon (click)="addGenericMemberDetails('reward')" matTooltip="Add Rewards">
-                                    <span class="material-icons pointer primaryBlue">
-                                        add_circle_outline
-                                    </span>
-                                </mat-icon>
-                            </div>
-                            <div *ngIf="user?.rewards?.length === 0">
-                                <h4 class="darkGreyColor">No Rewards Found</h4>
-                            </div>
-                            <div *ngIf="user?.rewards?.length > 0" fxLayout="row wrap"
-                                fxLayoutAlign="space-between center">
-                                <div fxLayout="row wrap" fxLayoutAlign="space-between center" fxFlex="100"
-                                    *ngFor="let reward of user.rewards, let i = index">
-                                    <div fxFlex="29" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Referred</mat-label>
-                                            <input matInput [value]="reward.refered" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="29" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Reward Status</mat-label>
-                                            <input matInput [value]="reward.givenReward" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxFlex="29" fxLayout="column" fxLayoutAlign="start stretch">
-                                        <mat-form-field appearance="legacy">
-                                            <mat-label>Referred Date</mat-label>
-                                            <input matInput value="{{reward.referedDate | date:'mediumDate'}}" disabled>
-                                        </mat-form-field>
-                                    </div>
-                                    <div fxLayout="column" fxLayoutAlign="start stretch">
-                                        <div fxLayout="row">
-                                            <mat-icon (click)="genericEdit(reward, i,'rewards')"
-                                                class="pointer primaryBlue">edit
-                                            </mat-icon>
-                                            <mat-icon (click)="deleteTravelReward(i)" class="pointer redColor">delete
-                                            </mat-icon>
-                                        </div>
-                                    </div>
-                                </div>
-                            </div>
-                        </form>
-                    </mat-card-content>
-                </mat-card>
-            </div>
-        </div>
+      </div>
     </div>
+    <div fxLayout="row" fxLayoutAlign="space-between center">
+      <div fxFlex="100" fxLayout="column" fxLayoutAlign="start stretch">
+        <mat-card>
+          <mat-card-content class="stepperHeight">
+            <div
+              *ngIf="!data?.title"
+              class="padding10px"
+              fxLayout="row"
+              fxLayoutAlign="space-between center"
+            >
+              <div fxFlex="100" fxLayout="column" fxLayoutAlign="center start">
+                <button
+                  routerLink="../../"
+                  mat-raised-button
+                  class="primaryBlueBtn whiteColor"
+                >
+                  <mat-icon class="font20px">arrow_back</mat-icon> Back To
+                  Members
+                </button>
+              </div>
+              <div
+                *ngIf="false"
+                fxFlex="30"
+                fxLayout="column"
+                fxLayoutAlign="start stretch"
+              >
+                <mat-form-field appearance="legacy">
+                  <mat-label
+                    >Enter phone number to resume application</mat-label
+                  >
+                  <input
+                    #input
+                    (keyup)="checkExisitingApplication(input.value)"
+                    matInput
+                    placeholder="Enter ID to resume"
+                    required
+                  />
+                </mat-form-field>
+              </div>
+            </div>
+            <form
+              [formGroup]="personalDetails"
+              class="padding20px member-scroll"
+            >
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <h1 class="bold">
+                  Member Details
+                  <span class="primaryBlue member-font"
+                    >({{ personalDetails.value.cardType }} MEMBER)</span
+                  >
+                </h1>
+              </div>
+              <div fxLayout="row wrap" fxLayoutAlign="space-between center">
+                <div
+                  fxFlex="30"
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                >
+                  <mat-form-field appearance="legacy">
+                    <mat-label>First Name</mat-label>
+                    <input matInput formControlName="firstName" required />
+                  </mat-form-field>
+                </div>
+                <div
+                  fxFlex="30"
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                >
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Last Name</mat-label>
+                    <input matInput formControlName="lastName" required />
+                  </mat-form-field>
+                </div>
+                <div
+                  fxFlex="30"
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                >
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Email</mat-label>
+                    <input matInput formControlName="email" required />
+                  </mat-form-field>
+                </div>
+                <div
+                  fxFlex="30"
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                >
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Phone</mat-label>
+                    <input matInput formControlName="phone" required />
+                  </mat-form-field>
+                </div>
+                <div
+                  fxFlex="30"
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                >
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Signup Date</mat-label>
+                    <input
+                      matInput
+                      value="{{
+                        personalDetails.value.signUpDate | date: 'mediumDate'
+                      }}"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  fxFlex="30"
+                  fxLayout="column"
+                  fxLayoutAlign="start stretch"
+                >
+                  <mat-form-field appearance="legacy">
+                    <mat-label>Expiry Date</mat-label>
+                    <input
+                      matInput
+                      value="{{
+                        personalDetails.value.expiryDate | date: 'mediumDate'
+                      }}"
+                      disabled
+                    />
+                  </mat-form-field>
+                </div>
+                <div
+                  fxLayout="row"
+                  fxLayoutAlign="space-between center"
+                  fxFlex="100"
+                >
+                  <p class="bold margin-bottom12px">Address</p>
+                </div>
+                <div
+                  fxLayout="row wrap"
+                  fxLayoutAlign="space-between center"
+                  fxFlex="100"
+                  formGroupName="address"
+                >
+                  <div
+                    fxFlex="22"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Street</mat-label>
+                      <input matInput formControlName="street" />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="22"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Suburb</mat-label>
+                      <input matInput formControlName="suburb" />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="22"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Town</mat-label>
+                      <input matInput formControlName="town" />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="22"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Code</mat-label>
+                      <input matInput formControlName="code" />
+                    </mat-form-field>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <h1 class="bold">Member Travel History</h1>
+                <mat-icon
+                  (click)="addGenericMemberDetails('history')"
+                  matTooltip="Add Travel History"
+                >
+                  <span class="material-icons pointer primaryBlue">
+                    add_circle_outline
+                  </span>
+                </mat-icon>
+              </div>
+              <div *ngIf="user?.travelHistory?.length === 0">
+                <h4 class="darkGreyColor">No Travel History Found</h4>
+              </div>
+              <div
+                *ngIf="user?.travelHistory?.length > 0"
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+              >
+                <div
+                  fxLayout="row wrap"
+                  fxLayoutAlign="space-between center"
+                  fxFlex="100"
+                  *ngFor="let history of user.travelHistory; let i = index"
+                >
+                  <div
+                    fxFlex="18"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>From</mat-label>
+                      <input matInput [value]="history.traveledFrom" disabled />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="18"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>To</mat-label>
+                      <input matInput [value]="history.to" disabled />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="18"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Departure Date</mat-label>
+                      <input
+                        matInput
+                        value="{{ history.travelDate | date: 'mediumDate' }}"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="18"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Return Date</mat-label>
+                      <input
+                        matInput
+                        value="{{ history.returnDate | date: 'mediumDate' }}"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="18"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field class="fullWidth" appearance="legacy">
+                      <mat-label>Notes</mat-label>
+                      <textarea
+                        rows="5"
+                        value="{{ history.notes }}"
+                        matInput
+                        placeholder="Notes"
+                        required
+                        disabled
+                      ></textarea>
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="column" fxLayoutAlign="end end">
+                    <div fxLayout="row">
+                      <mat-icon
+                        (click)="genericEdit(history, i, 'history')"
+                        class="pointer primaryBlue"
+                        >edit
+                      </mat-icon>
+                      <mat-icon
+                        (click)="deleteTravelHistory(i)"
+                        class="pointer redColor"
+                        >delete
+                      </mat-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+              <div fxLayout="row" fxLayoutAlign="space-between center">
+                <h1 class="bold">Rewards</h1>
+                <mat-icon
+                  (click)="addGenericMemberDetails('reward')"
+                  matTooltip="Add Rewards"
+                >
+                  <span class="material-icons pointer primaryBlue">
+                    add_circle_outline
+                  </span>
+                </mat-icon>
+              </div>
+              <div *ngIf="user?.rewards?.length === 0">
+                <h4 class="darkGreyColor">No Rewards Found</h4>
+              </div>
+              <div
+                *ngIf="user?.rewards?.length > 0"
+                fxLayout="row wrap"
+                fxLayoutAlign="space-between center"
+              >
+                <div
+                  fxLayout="row wrap"
+                  fxLayoutAlign="space-between center"
+                  fxFlex="100"
+                  *ngFor="let reward of user.rewards; let i = index"
+                >
+                  <div
+                    fxFlex="29"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Referred</mat-label>
+                      <input matInput [value]="reward.refered" disabled />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="29"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Reward Status</mat-label>
+                      <input matInput [value]="reward.givenReward" disabled />
+                    </mat-form-field>
+                  </div>
+                  <div
+                    fxFlex="29"
+                    fxLayout="column"
+                    fxLayoutAlign="start stretch"
+                  >
+                    <mat-form-field appearance="legacy">
+                      <mat-label>Referred Date</mat-label>
+                      <input
+                        matInput
+                        value="{{ reward.referedDate | date: 'mediumDate' }}"
+                        disabled
+                      />
+                    </mat-form-field>
+                  </div>
+                  <div fxLayout="column" fxLayoutAlign="start stretch">
+                    <div fxLayout="row">
+                      <mat-icon
+                        (click)="genericEdit(reward, i, 'rewards')"
+                        class="pointer primaryBlue"
+                        >edit
+                      </mat-icon>
+                      <mat-icon
+                        (click)="deleteTravelReward(i)"
+                        class="pointer redColor"
+                        >delete
+                      </mat-icon>
+                    </div>
+                  </div>
+                </div>
+              </div>
+            </form>
+          </mat-card-content>
+        </mat-card>
+      </div>
+    </div>
+  </div>
 </div>

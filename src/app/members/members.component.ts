@@ -47,6 +47,7 @@ export class MembersComponent implements OnInit {
       to: ['',[Validators.required]],
       travelDate: ['',[Validators.required]],
       returnDate: ['',[Validators.required]],
+      notes: [''],
     });
     return this.historyForm;
   }
