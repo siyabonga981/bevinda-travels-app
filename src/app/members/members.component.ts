@@ -23,7 +23,7 @@ export class MembersComponent implements OnInit {
 
   ];
   options1: any = [
-    "Pendding",
+    "Pending",
     "Granted",
     "Revoked"
   ];

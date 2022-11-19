@@ -53,7 +53,7 @@ export class PatientsComponent implements OnInit, AfterViewInit {
     private common: CommonService,
     @Optional() @Inject(MAT_DIALOG_DATA) public data: any,
   ) {
-    if(!this.common.getAgent()){
+    if (!this.common.getAgent()) {
       this.router.navigate(['login']);
     }
     this.getAllUsers();
@@ -62,11 +62,11 @@ export class PatientsComponent implements OnInit, AfterViewInit {
   ngOnInit(): void {
     // this.filterClients(this.filterValue);
   }
-  ngAfterViewInit() {}
+  ngAfterViewInit() { }
 
   getAllUsers() {
     this.spinner = true;
-    this.api.getAllUsers('users/getUsers' ).subscribe((res) => {
+    this.api.getAllUsers('users/getUsers').subscribe((res) => {
       this.spinner = false;
       this.clients = res;
       this.dataSource = new MatTableDataSource(this.clients);
@@ -150,20 +150,16 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       );
   }
   addMember() {
-    if (this.router.url.includes('home')) {
-      this.dialog
-        .open(AddEditPatientComponent, {
-          disableClose: true,
-        })
-        .afterClosed()
-        .subscribe((res) => {
-        });
-    } else {
-      this.router.navigate(['BevindaTravels/members/manageMember']);
-    }
+    this.dialog
+      .open(AddEditPatientComponent, {
+        disableClose: true,
+      })
+      .afterClosed()
+      .subscribe((res) => {
+      });
   }
 
-  navigateToMember(data: any){
+  navigateToMember(data: any) {
     this.router.navigate([`BevindaTravels/members/manageMember/${data._id}`]);
   }
 
@@ -189,8 +185,8 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       );
   }
 
-  addNewMember(){
-    let dialogData = {title: 'Add new member'};
+  addNewMember() {
+    let dialogData = { title: 'Add new member' };
     this.dialog
       .open(MembersComponent, {
         data: dialogData,
@@ -199,24 +195,24 @@ export class PatientsComponent implements OnInit, AfterViewInit {
       }).afterClosed().subscribe(res => {
         if (res) {
           this.api
-          .addUser(
-            'users/addUser/' , res
-          )
-          .subscribe(
-            (response) => {
-              this.snackbar.open(response['msg'], 'Dismiss', {
-                duration: 3000,
-                panelClass: ['greenBackground', 'whiteColor'],
-              });
-              this.getAllUsers();
-            },
-            (err) => {
-              this.snackbar.open(err['error'], 'Dismiss', {
-                duration: 3000,
-                panelClass: ['redBackground', 'whiteColor'],
-              });
-            }
-          );
+            .addUser(
+              'users/addUser/', res
+            )
+            .subscribe(
+              (response) => {
+                this.snackbar.open(response['msg'], 'Dismiss', {
+                  duration: 3000,
+                  panelClass: ['greenBackground', 'whiteColor'],
+                });
+                this.getAllUsers();
+              },
+              (err) => {
+                this.snackbar.open(err['error'], 'Dismiss', {
+                  duration: 3000,
+                  panelClass: ['redBackground', 'whiteColor'],
+                });
+              }
+            );
         }
 
       });
