@@ -6,8 +6,7 @@ import { Observable } from 'rxjs';
   providedIn: 'root'
 })
 export class ApiService {
-  // serverUrl = 'http://localhost:3000';
-  serverUrl = 'https://bevinda-travels.herokuapp.com'
+  serverUrl = 'https://bevinda.onrender.com';
   constructor(private http: HttpClient) { }
   getAgent(endpoint, body): Observable<any> {
     const url = `${this.serverUrl}/${endpoint}`;
